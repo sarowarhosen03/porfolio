@@ -1,6 +1,5 @@
-@import 'tailwindcss';
-
-@plugin 'tailwindcss-animate';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -97,6 +96,13 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+    * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 @utility bg-gradient-primary {
@@ -134,7 +140,7 @@
   background: var(--gradient-hero);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: var(--color-muted-foreground);
 }
 
 @utility animate-float {

@@ -15,20 +15,20 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto">
           {/* Profile image placeholder */}
           <div className="w-32 h-32 mx-auto mb-8 bg-gradient-primary rounded-full shadow-glow animate-glow"></div>
-          
+
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-gradient-hero">Sarowar Hossain</span>
+            <span className="text-gradient-hero text-muted-foreground ">Sarowar Hossain</span>
           </h1>
-          
+
           <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
             Software Developer
           </h2>
-          
+
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Passionate full-stack developer with expertise in modern web technologies. 
+            Passionate full-stack developer with expertise in modern web technologies.
             I create beautiful, functional applications that solve real-world problems.
           </p>
-          
+
           {/* Social links */}
           <div className="flex justify-center gap-4 mb-8">
             <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
@@ -41,7 +41,7 @@ const Hero = () => {
               <Mail className="h-5 w-5" />
             </Button>
           </div>
-          
+
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button className="bg-gradient-primary hover:shadow-glow transition-smooth px-8 py-3 text-lg">
@@ -51,7 +51,7 @@ const Hero = () => {
               Contact Me
             </Button>
           </div>
-          
+
           {/* Scroll indicator */}
           <div className="animate-bounce">
             <ArrowDown className="h-6 w-6 mx-auto text-muted-foreground" />

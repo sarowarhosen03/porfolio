@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { 
-  LayoutDashboard, 
-  FolderOpen, 
-  Settings, 
-  User, 
+import {
+  LayoutDashboard,
+  FolderOpen,
+  Settings,
+  User,
   LogOut,
   Plus,
   Edit,
@@ -22,10 +22,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
+
+import { toast } from "sonner";
 
 const Admin = () => {
-  const { toast } = useToast();
+
   const [activeTab, setActiveTab] = useState("dashboard");
   const [projects, setProjects] = useState([
     {
@@ -54,18 +55,18 @@ const Admin = () => {
 
   const handleDeleteProject = (id: number) => {
     setProjects(projects.filter(p => p.id !== id));
-    toast({
-      title: "Project deleted",
+    toast.message("Project deleted", {
+
       description: "The project has been successfully deleted.",
     });
   };
 
   const handleDeleteSkill = (id: number) => {
     setSkills(skills.filter(s => s.id !== id));
-    toast({
-      title: "Skill deleted",
-      description: "The skill has been successfully deleted.",
-    });
+    toast.message("Skill deleted", {
+      description: "The skill has been successfully deleted."
+    })
+
   };
 
   const sidebarItems = [
@@ -109,11 +110,10 @@ const Admin = () => {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left ${
-                    activeTab === item.id
-                      ? "bg-primary text-primary-foreground"
-                      : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left ${activeTab === item.id
+                    ? "bg-primary text-primary-foreground"
+                    : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   <Icon className="h-5 w-5" />
                   {item.label}
@@ -128,7 +128,7 @@ const Admin = () => {
           {activeTab === "dashboard" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold">Dashboard Overview</h2>
-              
+
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="p-6 bg-gradient-card border-0">
                   <h3 className="text-lg font-semibold mb-2">Total Projects</h3>
@@ -223,8 +223,8 @@ const Admin = () => {
                         <Button variant="outline" size="sm">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           onClick={() => handleDeleteProject(project.id)}
                         >
@@ -280,7 +280,7 @@ const Admin = () => {
                           </Badge>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
-                          <div 
+                          <div
                             className="bg-gradient-primary h-2 rounded-full"
                             style={{ width: `${skill.level}%` }}
                           ></div>
@@ -290,8 +290,8 @@ const Admin = () => {
                         <Button variant="outline" size="sm">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           onClick={() => handleDeleteSkill(skill.id)}
                         >
@@ -308,7 +308,7 @@ const Admin = () => {
           {activeTab === "profile" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold">Profile Settings</h2>
-              
+
               <Card className="p-6 bg-gradient-card border-0 max-w-2xl">
                 <form className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -321,15 +321,15 @@ const Admin = () => {
                       <Input defaultValue="sarowar@example.com" />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium mb-2">Bio</label>
-                    <Textarea 
+                    <Textarea
                       defaultValue="Passionate full-stack developer with expertise in modern web technologies."
                       rows={4}
                     />
                   </div>
-                  
+
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium mb-2">Phone</label>
@@ -340,7 +340,7 @@ const Admin = () => {
                       <Input defaultValue="Dhaka, Bangladesh" />
                     </div>
                   </div>
-                  
+
                   <Button className="bg-gradient-primary">
                     Update Profile
                   </Button>
