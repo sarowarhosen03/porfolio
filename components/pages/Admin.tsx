@@ -1,20 +1,7 @@
-import { useState } from "react";
-import {
-  LayoutDashboard,
-  FolderOpen,
-  Settings,
-  User,
-  LogOut,
-  Plus,
-  Edit,
-  Trash2,
-  Eye
-} from "lucide-react";
+"use client"
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
@@ -22,10 +9,30 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Edit,
+  Eye,
+  FolderOpen,
+  LayoutDashboard,
+  LogOut,
+  Plus,
+  Settings,
+  Trash2,
+  User
+} from "lucide-react";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { toast } from "sonner";
 
 const Admin = () => {
+
+  const router = useRouter()
+
 
   const [activeTab, setActiveTab] = useState("dashboard");
   const [projects, setProjects] = useState([
@@ -88,11 +95,14 @@ const Admin = () => {
             <h1 className="text-xl font-semibold">Admin Dashboard</h1>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm">
-              <Eye className="h-4 w-4 mr-2" />
-              View Site
-            </Button>
-            <Button variant="outline" size="sm">
+            <Link href={"/"}>
+              <Button variant="outline" size="sm">
+                <Eye className="h-4 w-4 mr-2" />
+                View Site
+              </Button></Link>
+            <Button onClick={() => {
+              signOut({ redirectTo: "/" })
+            }} variant="outline" size="sm">
               <LogOut className="h-4 w-4 mr-2" />
               Logout
             </Button>

@@ -1,7 +1,8 @@
 "use client"
-import { useState } from 'react';
+import LoginButton from '@/app/_components/LoginButton';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
 const Navigation = () => {
@@ -22,7 +23,7 @@ const Navigation = () => {
           <div className="font-bold text-xl te text-primary">
             Sarowar Hossain
           </div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <button
@@ -49,6 +50,7 @@ const Navigation = () => {
             >
               Contact
             </button>
+            <LoginButton />
             <ThemeToggle />
           </div>
 
@@ -93,6 +95,7 @@ const Navigation = () => {
               >
                 Contact
               </button>
+              <LoginButton />
             </div>
           </div>
         )}
