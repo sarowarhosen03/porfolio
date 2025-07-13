@@ -1,5 +1,8 @@
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Github from '@/svgs/github';
+import Linkedin from '@/svgs/linkdin';
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -32,6 +35,7 @@ const Hero = () => {
           {/* Social links */}
           <div className="flex justify-center gap-4 mb-8">
             <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
+
               <Github className="h-5 w-5" />
             </Button>
             <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
@@ -44,18 +48,23 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button className="bg-gradient-primary hover:shadow-glow transition-smooth px-8 py-3 text-lg">
-              View My Work
-            </Button>
-            <Button variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
-              Contact Me
-            </Button>
+
+            <Link href={"#projects"}>
+              <Button variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
+                View My Work
+              </Button></Link>
+            <Link href={"#contact"}>
+              <Button variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
+                Contact Me
+              </Button>
+            </Link>
+
           </div>
 
           {/* Scroll indicator */}
-          <div className="animate-bounce">
+          <Link href={"#skills"} className="animate-bounce">
             <ArrowDown className="h-6 w-6 mx-auto text-muted-foreground" />
-          </div>
+          </Link>
         </div>
       </div>
     </section>
