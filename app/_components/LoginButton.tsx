@@ -1,10 +1,12 @@
+"use client"
 import { Eye, LogIn } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 export default function LoginButton() {
     const { data, status } = useSession();
+  
     return (
-        process.env.NODE_ENV === "development" && (
+        (process.env.NODE_ENV === "development" || status === "authenticated") && (
             <>
                 {status === "authenticated" && (
                     <Link href={"/dashboard"}>

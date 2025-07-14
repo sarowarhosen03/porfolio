@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TagInputProps {
     value?: string[];
@@ -9,19 +9,34 @@ interface TagInputProps {
     placeholder?: string;
     delimiter?: string;
     maxTags?: number;
-    name?: string
 }
 
 export default function TagInput({
-    value = [],
+    value,
     onChange,
     placeholder = "Enter a tag...",
     delimiter = ",",
     maxTags,
-    name
 }: TagInputProps) {
     const [inputValue, setInputValue] = useState("");
-    const [tags, setTags] = useState<string[]>(value);
+    const [internalTags, setInternalTags] = useState<string[]>([]);
+
+    // Keep internal state in sync with `value` prop
+    const tags = value !== undefined ? value : internalTags;
+
+    useEffect(() => {
+        if (value !== undefined) {
+            setInternalTags(value);
+        }
+    }, [value]);
+
+    const emitChange = (next: string[]) => {
+        if (onChange) {
+            onChange(next);
+        } else {
+            setInternalTags(next);
+        }
+    };
 
     const addTags = (raw: string) => {
         let newTags = raw
@@ -34,9 +49,7 @@ export default function TagInput({
         }
 
         if (newTags.length > 0) {
-            const updated = [...tags, ...newTags];
-            setTags(updated);
-            onChange?.(updated);
+            emitChange([...tags, ...newTags]);
         }
     };
 
@@ -50,8 +63,7 @@ export default function TagInput({
 
     const removeTag = (index: number) => {
         const updated = tags.filter((_, i) => i !== index);
-        setTags(updated);
-        onChange?.(updated);
+        emitChange(updated);
     };
 
     return (
@@ -68,7 +80,6 @@ export default function TagInput({
                 ))}
             </div>
             <Input
-                name={name}
                 placeholder={placeholder}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
