@@ -20,48 +20,71 @@ import {
 } from "@/components/ui/select";
 import TagInput from "@/components/ui/TagInput";
 import { Textarea } from "@/components/ui/textarea";
-import { $Enums, Skill } from "@/lib/generated/prisma";
+import { $Enums, Project, Skill } from "@/lib/generated/prisma";
 import resolvePromise from "@/lib/resolvePromise";
 import { Loader2Icon, Plus } from "lucide-react";
-import { useState, useTransition } from "react";
+import {
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useState,
+    useTransition,
+} from "react";
 import { toast } from "sonner";
-import { addProjectAction } from "../projects/action";
+import { addProjectAction, editProjectAction } from "../projects/action";
 
-export default function AddAndEditProject({ skills }: { skills: Skill[] }) {
+const defaultProjectState = {
+    id: "",
+    title: "",
+    description: "",
+    technologies: [],
+    status: $Enums.ProjectStatus.DRAFT,
+    featured: false,
+    sourceCodeUrl: "",
+    liveUrl: "",
+    imageUrl: "",
+};
+export default function AddAndEditProject({
+    skills,
+    isOpen,
+    setIsOpen,
+    editState,
+    setEditState,
+}: {
+    skills: Skill[];
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    setEditState: Dispatch<SetStateAction<Project | null>>;
+    editState: null | Project;
+}) {
     const [isPending, startTransition] = useTransition();
 
-    const [projectState, setProjectState] = useState<{
-        title: string;
-        description: string;
-        technologies: string[];
-        status: $Enums.ProjectStatus;
-        featured: boolean;
-        sourceCodeUrl: string;
-        liveUrl: string;
-        imageUrl: string;
-    }>({
-        title: "",
-        description: "",
-        technologies: [],
-        status: $Enums.ProjectStatus.DRAFT,
-        featured: false,
-        sourceCodeUrl: "",
-        liveUrl: "",
-        imageUrl: "",
-    });
-    const [isOpen, setIsOpen] = useState(false);
+    const [projectState, setProjectState] = useState<
+        Omit<Project, "createdAt" | "updatedAt">
+    >(defaultProjectState);
+
+    useEffect(() => {
+        if (editState) {
+            setProjectState(editState);
+        } else {
+            setProjectState(defaultProjectState);
+        }
+    }, [editState]);
+
     async function handleAddProjects(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         startTransition(() => {
             (async () => {
-                await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
                 const [data, error] = await resolvePromise(
-                    addProjectAction(projectState)
+                    editState
+                        ? editProjectAction({ ...projectState, id: editState.id })
+                        : addProjectAction(projectState)
                 );
                 if (error || !data?.success) {
-                    toast.error("Failed to add project");
+                    toast.error("Soothing Went Wrong");
                 } else {
-                    setIsOpen(false)
+                    setIsOpen(false);
+                    setProjectState(defaultProjectState)
                     toast.success(data?.message || "Project added successfully!");
                 }
             })();
@@ -78,7 +101,15 @@ export default function AddAndEditProject({ skills }: { skills: Skill[] }) {
         }));
     }
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <Dialog
+            open={isOpen}
+            onOpenChange={(e) => {
+                if (!e) {
+                    setEditState(null);
+                }
+                setIsOpen(e);
+            }}
+        >
             <DialogTrigger asChild>
                 <Button className="bg-gradient-primary">
                     <Plus className="h-4 w-4 mr-2" />
@@ -87,7 +118,7 @@ export default function AddAndEditProject({ skills }: { skills: Skill[] }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Add New Project</DialogTitle>
+                    <DialogTitle>{editState ? "Edit" : "Add New"} Project</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleAddProjects} className="space-y-4">
                     <Input
@@ -144,19 +175,19 @@ export default function AddAndEditProject({ skills }: { skills: Skill[] }) {
 
                     <Input
                         onChange={handleChange}
-                        value={projectState.sourceCodeUrl}
+                        value={projectState.sourceCodeUrl || ""}
                         name="sourceCodeUrl"
                         placeholder="Source Code"
                     />
                     <Input
                         onChange={handleChange}
-                        value={projectState.liveUrl}
+                        value={projectState.liveUrl || ""}
                         name="liveUrl"
                         placeholder="live url"
                     />
                     <Input
                         onChange={handleChange}
-                        value={projectState.imageUrl}
+                        value={projectState.imageUrl || ""}
                         name="imageUrl"
                         placeholder="image url"
                     />
@@ -199,7 +230,7 @@ export default function AddAndEditProject({ skills }: { skills: Skill[] }) {
                                 Please wait
                             </>
                         )}
-                        {!isPending && "Add Project"}
+                        {!isPending && `${editState ? "Edit" : "Add"} Project`}
                     </Button>
                 </form>
             </DialogContent>

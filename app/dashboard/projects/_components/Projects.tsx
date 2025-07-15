@@ -34,12 +34,16 @@ export default function ProjectComponent({
 
 
 
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [editState, setEditState] = useState<null | Project>(null)
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Manage Projects</h2>
-        <AddAndEditProject skills={skills} />
+        <AddAndEditProject skills={skills} isOpen={isOpen} setIsOpen={setIsOpen}
+          editState={editState}
+          setEditState={setEditState}
+        />
       </div>
 
       <div className="grid gap-4">
@@ -71,7 +75,10 @@ export default function ProjectComponent({
                 </div>
               </div>
               <div className="flex items-center gap-2 ml-4">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={() => {
+                  setEditState(project)
+                  setIsOpen(true)
+                }}>
                   <Edit className="h-4 w-4" />
                 </Button>
 

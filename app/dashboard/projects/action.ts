@@ -6,8 +6,9 @@ import { dbClient } from "@/prismaClient";
 import { revalidatePath } from "next/cache";
 
 export async function addProjectAction(
-  payload: Omit<Project, "id" | "createdAt" | "updatedAt">
+  payload: Project | Omit<Project, "createdAt" | "updatedAt">
 ) {
+  delete (payload as Partial<Project>).id;
   const [data, error] = await resolvePromise(
     dbClient.project.create({
       data: payload,
@@ -19,6 +20,24 @@ export async function addProjectAction(
   return { success: true, message: "Project added successfully!", data };
 }
 
+export async function editProjectAction(
+  payload: Project | Omit<Project, "createdAt" | "updatedAt">
+) {
+  const [data, error] = await resolvePromise(
+    dbClient.project.update({
+      where: { id: payload.id },
+      data: {
+        ...payload,
+        createdAt: undefined,
+        updatedAt: undefined,
+      },
+    })
+  );
+  if (error) return { success: false, error: "Failed to update project." };
+  revalidatePath("/dashboard/projects");
+  revalidatePath("/dashboard");
+  return { success: true, message: "Project updated successfully!", data };
+}
 export async function deleteProjectAction(id: string) {
   const [data, error] = await resolvePromise(
     dbClient.project.delete({

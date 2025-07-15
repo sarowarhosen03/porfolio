@@ -6,7 +6,11 @@ export default async function page() {
 
     // const [[totalProject, totalSkill, featuredProject], error] = 
     const [data, error] = await resolvePromise(Promise.all([
-        dbClient.project.findMany()
+        dbClient.project.findMany({
+            orderBy: {
+                updatedAt: "desc"
+            }
+        })
         , dbClient.skill.findMany(),
 
 
