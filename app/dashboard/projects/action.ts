@@ -49,5 +49,5 @@ export async function deleteProjectAction(id: string) {
   if (error) return { success: false, error: "Failed to delete project." };
   revalidatePath("/dashboard/projects");
   revalidatePath("/dashboard");
-  return { success: true, message: "Project Deleted successfully!", data };
+  return { success: true, message: "Project Deleted successfully!" };
 }

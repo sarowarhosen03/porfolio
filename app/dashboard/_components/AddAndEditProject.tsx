@@ -33,7 +33,7 @@ import {
 import { toast } from "sonner";
 import { addProjectAction, editProjectAction } from "../projects/action";
 
-const defaultProjectState = {
+const defaultskillState = {
     id: "",
     title: "",
     description: "",
@@ -59,15 +59,15 @@ export default function AddAndEditProject({
 }) {
     const [isPending, startTransition] = useTransition();
 
-    const [projectState, setProjectState] = useState<
+    const [skillState, setSkillState] = useState<
         Omit<Project, "createdAt" | "updatedAt">
-    >(defaultProjectState);
+    >(defaultskillState);
 
     useEffect(() => {
         if (editState) {
-            setProjectState(editState);
+            setSkillState(editState);
         } else {
-            setProjectState(defaultProjectState);
+            setSkillState(defaultskillState);
         }
     }, [editState]);
 
@@ -77,14 +77,14 @@ export default function AddAndEditProject({
             (async () => {
                 const [data, error] = await resolvePromise(
                     editState
-                        ? editProjectAction({ ...projectState, id: editState.id })
-                        : addProjectAction(projectState)
+                        ? editProjectAction({ ...skillState, id: editState.id })
+                        : addProjectAction(skillState)
                 );
                 if (error || !data?.success) {
                     toast.error("Soothing Went Wrong");
                 } else {
                     setIsOpen(false);
-                    setProjectState(defaultProjectState)
+                    setSkillState(defaultskillState)
                     toast.success(data?.message || "Project added successfully!");
                 }
             })();
@@ -95,7 +95,7 @@ export default function AddAndEditProject({
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
         >
     ) {
-        setProjectState((prev) => ({
+        setSkillState((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
         }));
@@ -123,14 +123,14 @@ export default function AddAndEditProject({
                 <form onSubmit={handleAddProjects} className="space-y-4">
                     <Input
                         onChange={handleChange}
-                        value={projectState.title}
+                        value={skillState.title}
                         required
                         placeholder="Project Title"
                         name="title"
                     />
                     <Textarea
                         onChange={handleChange}
-                        value={projectState.description}
+                        value={skillState.description}
                         required
                         placeholder="Project Description"
                         rows={3}
@@ -141,9 +141,9 @@ export default function AddAndEditProject({
                         <Select
                             required
                             name="status"
-                            value={projectState.status}
+                            value={skillState.status}
                             onValueChange={(value: $Enums.ProjectStatus) =>
-                                setProjectState((prev) => ({ ...prev, status: value }))
+                                setSkillState((prev) => ({ ...prev, status: value }))
                             }
                         >
                             <SelectTrigger className="w-[180px]">
@@ -165,9 +165,9 @@ export default function AddAndEditProject({
                             <Checkbox
                                 id="featured"
                                 name="featured"
-                                checked={projectState.featured}
+                                checked={skillState.featured}
                                 onCheckedChange={(e) =>
-                                    setProjectState((prev) => ({ ...prev, featured: Boolean(e) }))
+                                    setSkillState((prev) => ({ ...prev, featured: Boolean(e) }))
                                 }
                             />
                         </div>
@@ -175,26 +175,26 @@ export default function AddAndEditProject({
 
                     <Input
                         onChange={handleChange}
-                        value={projectState.sourceCodeUrl || ""}
+                        value={skillState.sourceCodeUrl || ""}
                         name="sourceCodeUrl"
                         placeholder="Source Code"
                     />
                     <Input
                         onChange={handleChange}
-                        value={projectState.liveUrl || ""}
+                        value={skillState.liveUrl || ""}
                         name="liveUrl"
                         placeholder="live url"
                     />
                     <Input
                         onChange={handleChange}
-                        value={projectState.imageUrl || ""}
+                        value={skillState.imageUrl || ""}
                         name="imageUrl"
                         placeholder="image url"
                     />
                     <TagInput
-                        value={projectState.technologies}
+                        value={skillState.technologies}
                         onChange={(newUpdate) => {
-                            setProjectState((prev) => ({ ...prev, technologies: newUpdate }));
+                            setSkillState((prev) => ({ ...prev, technologies: newUpdate }));
                             // console.log(newUpdate);
                         }}
                         placeholder="technologies"
@@ -202,14 +202,14 @@ export default function AddAndEditProject({
                     <div className="flex flex-wrap gap-2">
                         {skills
                             .filter(
-                                (skill) => !projectState.technologies.includes(skill.title)
+                                (skill) => !skillState.technologies.includes(skill.title)
                             )
                             .map((skill, index) => (
                                 <Badge
                                     key={index}
                                     className="flex items-center gap-1 bg-primary-foreground text-foreground"
                                     onClick={() =>
-                                        setProjectState((prev) => ({
+                                        setSkillState((prev) => ({
                                             ...prev,
                                             technologies: [...prev.technologies, skill.title],
                                         }))

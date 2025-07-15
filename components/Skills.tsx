@@ -1,7 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
-const Skills = () => {
+const Skills = ({
+
+}) => {
   const skillsData = [
     {
       category: "Frontend",
@@ -52,7 +54,7 @@ const Skills = () => {
               <h3 className="text-2xl font-semibold mb-6 text-primary">
                 {category.category}
               </h3>
-              
+
               <div className="space-y-4">
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skill.name} className="space-y-2">
@@ -62,11 +64,11 @@ const Skills = () => {
                         {skill.level}%
                       </Badge>
                     </div>
-                    
+
                     <div className="w-full bg-muted rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-gradient-primary h-2 rounded-full transition-all duration-1000 ease-out"
-                        style={{ 
+                        style={{
                           width: `${skill.level}%`,
                           animationDelay: `${(categoryIndex * 3 + skillIndex) * 0.1}s`
                         }}
