@@ -25,10 +25,13 @@ import { dbClient } from "./prismaClient";
   //     },
   //   ],
   // });
-  const dta = await dbClient.personalInfo.create({
-    data:{
-      
-    }
+  const dta = await dbClient.socialLInk.create({
+    data: {
+      icon: "fuck",
+      name: "fuck",
+      url: "http",
+      personalInfoId: "cmd308hvw0000k50w3avzbijd",
+    },
   });
   console.log(dta);
 })();

@@ -53,21 +53,21 @@ model Activity {
 }
 
 model PersonalInfo {
-  id             String   @id @default(cuid())
-  name           String   @default("Md Sarowar Hossain ")
-  description    String   @default("I am a passionate web developer with a focus on creating dynamic and responsive web applications. I love to learn new technologies and improve my skills.")
-  email          String?  @unique @default("sarowarhosen03@gmail.com")
-  phone          String?  @default("+880 1790-000000")
-  location       String?  @default("Dhaka, Bangladesh")
-  imageUrl       String?
-  socialLinks    Json?    @default("[{}]")
-  githubUserName String?  @default("sarowarhosen03")
-  cvUrl          String?
-  resumeUrl      String?
-  status         String[] @default(["available"])
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String   @default("Md Sarowar Hossain ")
+  description String   @default("I am a passionate web developer with a focus on creating dynamic and responsive web applications. I love to learn new technologies and improve my skills.")
+  email       String   @unique @default("sarowarhosen03@gmail.com")
+  phone       String?  @default("+880 1790-000000")
+  location    String?  @default("Dhaka, Bangladesh")
+  imageUrl    String?
+  socialLinks Json     @default("[]")
+  cvUrl       String?
+  resumeUrl   String?
+  status      String   @default("available")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
+
 
 // auth-js
 model User {
