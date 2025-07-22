@@ -33,5 +33,4 @@ import { dbClient } from "./prismaClient";
       personalInfoId: "cmd308hvw0000k50w3avzbijd",
     },
   });
-  console.log(dta);
 })();

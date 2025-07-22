@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PersonalInfo } from "@/lib/generated/prisma";
 import resolvePromise from "@/lib/resolvePromise";
-import { Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from 'uuid';
@@ -142,9 +142,30 @@ export default function Profile({
                                     }
                                 />
 
-                                <div className="h-full  justify-center items-center flex">                                <Trash2 onClick={() => {
-                                    setSocialLinks(socialLinks.filter((item, sIndex) => sIndex !== index))
-                                }} className="h-4 w-4  col-span-1 items-center hover:text-red-500   hover:scale-110" />
+                                <div className="h-full gap-2 justify-around items-center flex">
+
+                                    {
+
+                                        index !== 0 && <ArrowUp onClick={() => {
+                                            if (index > 0) {
+                                                const newLinks = [...socialLinks];
+                                                [newLinks[index - 1], newLinks[index]] = [newLinks[index], newLinks[index - 1]];
+                                                setSocialLinks(newLinks);
+                                            }
+                                        }} className="h-4 w-4 hover:text-blue-500 hover:scale-110 cursor-pointer" />
+
+                                    }
+                                    {index !== socialLinks.length - 1 && <ArrowDown onClick={() => {
+                                        if (index < socialLinks.length - 1) {
+                                            const newLinks = [...socialLinks];
+                                            [newLinks[index], newLinks[index + 1]] = [newLinks[index + 1], newLinks[index]];
+                                            setSocialLinks(newLinks);
+                                        }
+                                    }} className="h-4 w-4 hover:text-blue-500 hover:scale-110 cursor-pointer" />
+                                    }
+                                    <Trash2 onClick={() => {
+                                        setSocialLinks(socialLinks.filter((item, sIndex) => sIndex !== index))
+                                    }} className="h-4 w-4  col-span-1 items-center hover:text-red-500   hover:scale-110" />
                                 </div>
                             </div>
                         ))}

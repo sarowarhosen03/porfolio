@@ -37,5 +37,6 @@ export async function updateProfileAction(
   );
   if (error) return { success: false, message: "failed to update" };
   revalidatePath("/dashboard/profile");
+  revalidatePath("/");
   return { success: false, message: "Updated Successfully" };
 }

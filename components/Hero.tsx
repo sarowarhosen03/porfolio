@@ -1,10 +1,11 @@
-import { ArrowDown, Mail } from "lucide-react";
+import { SocialLink } from "@/app/dashboard/profile/action";
 import { Button } from "@/components/ui/button";
-import Github from '@/svgs/github';
-import Linkedin from '@/svgs/linkdin';
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 
-const Hero = () => {
+const Hero = ({ name, bio, socialLinks }: { name: string, bio: string, socialLinks: SocialLink }) => {
+
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-hero">
       {/* Animated background elements */}
@@ -20,7 +21,7 @@ const Hero = () => {
           <div className="w-32 h-32 mx-auto mb-8 bg-gradient-primary rounded-full shadow-glow animate-glow"></div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-gradient-hero text-muted-foreground ">Sarowar Hossain</span>
+            <span className="text-gradient-hero text-muted-foreground ">{name}</span>
           </h1>
 
           <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
@@ -28,22 +29,25 @@ const Hero = () => {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Passionate full-stack developer with expertise in modern web technologies.
-            I create beautiful, functional applications that solve real-world problems.
+            {bio}
           </p>
 
           {/* Social links */}
           <div className="flex justify-center gap-4 mb-8">
-            <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
 
-              <Github className="h-5 w-5" />
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
-              <Linkedin className="h-5 w-5" />
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
-              <Mail className="h-5 w-5" />
-            </Button>
+            {
+              socialLinks.map((item, i) => (
+
+                <Link key={i} href={item.url} >
+                  <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
+
+                    <div dangerouslySetInnerHTML={{
+                      __html: item.icon
+                    }} className="h-5 w-5 cursor-pointer" />
+                  </Button></Link>
+              ))
+            }
+
           </div>
 
           {/* CTA Buttons */}

@@ -1,40 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { categoryList } from "@/data/staticData";
+import { Skill } from "@/lib/generated/prisma";
 
 const Skills = ({
-
+  skill
+}: {
+  skill: Skill[]
 }) => {
-  const skillsData = [
-    {
-      category: "Frontend",
-      skills: [
-        { name: "HTML", level: 95 },
-        { name: "CSS", level: 90 },
-        { name: "JavaScript", level: 92 },
-        { name: "React", level: 88 },
-        { name: "Next.js", level: 85 },
-        { name: "Tailwind CSS", level: 90 }
-      ]
-    },
-    {
-      category: "Backend",
-      skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Express", level: 82 },
-        { name: "SQL", level: 80 },
-        { name: "MongoDB", level: 78 }
-      ]
-    },
-    {
-      category: "Tools & Others",
-      skills: [
-        { name: "Linux", level: 75 },
-        { name: "Git", level: 85 },
-        { name: "Docker", level: 70 },
-        { name: "AWS", level: 65 }
-      ]
-    }
-  ];
+
 
   return (
     <section className="py-20 bg-muted/30">
@@ -49,17 +23,17 @@ const Skills = ({
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {skillsData.map((category, categoryIndex) => (
-            <Card key={category.category} className="p-6 bg-gradient-card hover:shadow-glow transition-smooth border-0">
+          {categoryList.map((category, categoryIndex) => (
+            <Card key={category} className="p-6 bg-gradient-card hover:shadow-glow transition-smooth border-0">
               <h3 className="text-2xl font-semibold mb-6 text-primary">
-                {category.category}
+                {category}
               </h3>
 
               <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name} className="space-y-2">
+                {skill.filter(skill => skill.category === category).map((skill, skillIndex) => (
+                  <div key={skill.id} className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-medium">{skill.name}</span>
+                      <span className="font-medium">{skill.title}</span>
                       <Badge variant="secondary" className="text-xs">
                         {skill.level}%
                       </Badge>
