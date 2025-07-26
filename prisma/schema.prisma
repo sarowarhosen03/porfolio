@@ -31,6 +31,8 @@ model Project {
   sourceCodeUrl String?
   liveUrl       String?
   imageUrl      String?
+  gallery       String[]
+  blogContent   String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 }
@@ -67,7 +69,6 @@ model PersonalInfo {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
-
 
 // auth-js
 model User {

@@ -18,7 +18,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathName = usePathname();
-  console.log(pathName);
 
   const sidebarItems = [
     { id: "/dashboard", label: "Dashboard", icon: LayoutDashboard },

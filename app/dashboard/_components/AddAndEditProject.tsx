@@ -22,18 +22,20 @@ import TagInput from "@/components/ui/TagInput";
 import { Textarea } from "@/components/ui/textarea";
 import { $Enums, Project, Skill } from "@/lib/generated/prisma";
 import resolvePromise from "@/lib/resolvePromise";
-import { Loader2Icon, Plus } from "lucide-react";
+import { } from "@radix-ui/react-alert-dialog";
+import { Delete, ImageIcon, Loader2Icon, Plus } from "lucide-react";
+import Image from "next/image";
 import {
     Dispatch,
     SetStateAction,
     useEffect,
+    useRef,
     useState,
     useTransition,
 } from "react";
 import { toast } from "sonner";
 import { addProjectAction, editProjectAction } from "../projects/action";
-
-const defaultskillState = {
+const defaultProejctstate = {
     id: "",
     title: "",
     description: "",
@@ -43,6 +45,8 @@ const defaultskillState = {
     sourceCodeUrl: "",
     liveUrl: "",
     imageUrl: "",
+    gallery: [],
+    blogContent: "",
 };
 export default function AddAndEditProject({
     skills,
@@ -59,15 +63,14 @@ export default function AddAndEditProject({
 }) {
     const [isPending, startTransition] = useTransition();
 
-    const [skillState, setSkillState] = useState<
-        Omit<Project, "createdAt" | "updatedAt">
-    >(defaultskillState);
+    const [projectState, setProjectState] =
+        useState<Omit<Project, "createdAt" | "updatedAt">>(defaultProejctstate);
 
     useEffect(() => {
         if (editState) {
-            setSkillState(editState);
+            setProjectState(editState);
         } else {
-            setSkillState(defaultskillState);
+            setProjectState(defaultProejctstate);
         }
     }, [editState]);
 
@@ -77,14 +80,14 @@ export default function AddAndEditProject({
             (async () => {
                 const [data, error] = await resolvePromise(
                     editState
-                        ? editProjectAction({ ...skillState, id: editState.id })
-                        : addProjectAction(skillState)
+                        ? editProjectAction({ ...projectState, id: editState.id })
+                        : addProjectAction(projectState)
                 );
                 if (error || !data?.success) {
                     toast.error("Soothing Went Wrong");
                 } else {
                     setIsOpen(false);
-                    setSkillState(defaultskillState)
+                    setProjectState(defaultProejctstate);
                     toast.success(data?.message || "Project added successfully!");
                 }
             })();
@@ -95,11 +98,12 @@ export default function AddAndEditProject({
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
         >
     ) {
-        setSkillState((prev) => ({
+        setProjectState((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
         }));
     }
+
     return (
         <Dialog
             open={isOpen}
@@ -123,14 +127,14 @@ export default function AddAndEditProject({
                 <form onSubmit={handleAddProjects} className="space-y-4">
                     <Input
                         onChange={handleChange}
-                        value={skillState.title}
+                        value={projectState.title}
                         required
                         placeholder="Project Title"
                         name="title"
                     />
                     <Textarea
                         onChange={handleChange}
-                        value={skillState.description}
+                        value={projectState.description}
                         required
                         placeholder="Project Description"
                         rows={3}
@@ -141,9 +145,9 @@ export default function AddAndEditProject({
                         <Select
                             required
                             name="status"
-                            value={skillState.status}
+                            value={projectState.status}
                             onValueChange={(value: $Enums.ProjectStatus) =>
-                                setSkillState((prev) => ({ ...prev, status: value }))
+                                setProjectState((prev) => ({ ...prev, status: value }))
                             }
                         >
                             <SelectTrigger className="w-[180px]">
@@ -165,9 +169,9 @@ export default function AddAndEditProject({
                             <Checkbox
                                 id="featured"
                                 name="featured"
-                                checked={skillState.featured}
+                                checked={projectState.featured}
                                 onCheckedChange={(e) =>
-                                    setSkillState((prev) => ({ ...prev, featured: Boolean(e) }))
+                                    setProjectState((prev) => ({ ...prev, featured: Boolean(e) }))
                                 }
                             />
                         </div>
@@ -175,26 +179,22 @@ export default function AddAndEditProject({
 
                     <Input
                         onChange={handleChange}
-                        value={skillState.sourceCodeUrl || ""}
+                        value={projectState.sourceCodeUrl || ""}
                         name="sourceCodeUrl"
                         placeholder="Source Code"
                     />
                     <Input
                         onChange={handleChange}
-                        value={skillState.liveUrl || ""}
+                        value={projectState.liveUrl || ""}
                         name="liveUrl"
                         placeholder="live url"
                     />
-                    <Input
-                        onChange={handleChange}
-                        value={skillState.imageUrl || ""}
-                        name="imageUrl"
-                        placeholder="image url"
-                    />
+
+                    <ImageSelector images={projectState.gallery} />
                     <TagInput
-                        value={skillState.technologies}
+                        value={projectState.technologies}
                         onChange={(newUpdate) => {
-                            setSkillState((prev) => ({ ...prev, technologies: newUpdate }));
+                            setProjectState((prev) => ({ ...prev, technologies: newUpdate }));
                             // console.log(newUpdate);
                         }}
                         placeholder="technologies"
@@ -202,14 +202,14 @@ export default function AddAndEditProject({
                     <div className="flex flex-wrap gap-2">
                         {skills
                             .filter(
-                                (skill) => !skillState.technologies.includes(skill.title)
+                                (skill) => !projectState.technologies.includes(skill.title)
                             )
                             .map((skill, index) => (
                                 <Badge
                                     key={index}
                                     className="flex items-center gap-1 bg-primary-foreground text-foreground"
                                     onClick={() =>
-                                        setSkillState((prev) => ({
+                                        setProjectState((prev) => ({
                                             ...prev,
                                             technologies: [...prev.technologies, skill.title],
                                         }))
@@ -219,6 +219,7 @@ export default function AddAndEditProject({
                                 </Badge>
                             ))}
                     </div>
+
                     <Button
                         type="submit"
                         disabled={isPending}
@@ -235,5 +236,50 @@ export default function AddAndEditProject({
                 </form>
             </DialogContent>
         </Dialog>
+    );
+}
+
+function ImageSelector({ images }: { images: string[] }) {
+    const imageInputRef = useRef<RefObject.HTMLFormElement>(null);
+    const [selectedImages, setSelectedImages] = useState<File[]>([]);
+
+    const handleImageChange = () => {
+        const files = imageInputRef.current?.files;
+        if (files && files.length > 0) {
+            setSelectedImages((prev) => [...prev, ...Array.from(files as File[])]);
+        }
+    };
+
+    return (
+        <>
+            <Input
+                ref={imageInputRef}
+                onChange={handleImageChange}
+                name="imageUrl"
+                type="file"
+                multiple
+                accept="image/*"
+                hidden
+            />
+            <div className="flex flex-wrap gap-2 cursor-pointer">
+                {[
+                    ...images,
+                    ...selectedImages.map((file) => URL.createObjectURL(file)),
+                ].map((src, index) => (
+                    <div key={index}                    >
+                        <Image
+                            src={src}
+                            alt={`Image ${index}`}
+                            width={150}
+                            height={100}
+                            className="rounded shadow"
+                        />
+                        <Delete />
+                    </div>
+                ))}
+
+                <ImageIcon onClick={() => imageInputRef.current?.click()} size={48} />
+            </div>
+        </>
     );
 }
