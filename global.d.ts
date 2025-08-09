@@ -4,6 +4,8 @@ declare namespace NodeJS {
     BASE_URL: string;
     NEXT_PUBLIC_BASE_URL: string;
     AUTH_URL: string;
+    EMAIL_USER: string;
+    EMAIL_PASSWORD: string;
     AUTH_GOOGLE_ID: string;
     AUTH_GOOGLE_SECRET: string;
     DATABASE_URL: string; // This is the Prisma connection string

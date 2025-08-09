@@ -178,7 +178,7 @@ export default function AddAndEditProject({
                         value={projectState.description}
                         required
                         placeholder="Project Description"
-                        rows={3}
+                        rows={10}
                         name="description"
                     />
 
