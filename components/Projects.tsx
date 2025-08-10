@@ -46,12 +46,12 @@ const Projects = ({
                   <div className="aspect-video bg-gradient-primary/20 flex items-center justify-center">
                     <span className="text-muted-foreground">
 
-                      {project.imageUrl ?
+                      {project.gallery.length ?
                         <Image
                           height={200}
                           width={300}
                           className="h-auto w-full"
-                          src={project.imageUrl}
+                          src={project.gallery[0]}
                           alt="project image"
                         /> : "Project image"
 
