@@ -65,6 +65,7 @@ export default function DeleteDialog({ id, title, deleteAction }: DeleteDialogPr
                                 } else {
                                     toast.success(data?.message || "Deleted successfully!");
                                 }
+                                setOpen(false);
                             });
                         }}
                     >

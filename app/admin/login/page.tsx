@@ -1,16 +1,27 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/svgs/google";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function page() {
-
+    const { status } = useSession()
+    const router = useRouter()
     async function handleLogin() {
         await signIn("google", {
             redirectTo: "/dashboard",
         })
 
     }
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push("/dashboard");
+        }
+    }, [])
+
+
     return (
 
         <div className="flex h-screen items-center justify-center">

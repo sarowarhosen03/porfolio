@@ -20,6 +20,7 @@ export async function addSkillAction(
   if (error) return { success: false, error: "Failed to add Skill." };
   revalidatePath("/dashboard/skills");
   revalidatePath("/dashboard");
+  revalidatePath("/");
   return { success: true, message: "Skill added successfully!", data };
 }
 
@@ -41,6 +42,8 @@ export async function editSkillAction(
   if (error) return { success: false, error: "Failed to update Skill." };
   revalidatePath("/dashboard/skills");
   revalidatePath("/dashboard");
+  revalidatePath("/");
+
   return { success: true, message: "Skill updated successfully!", data };
 }
 
