@@ -1,7 +1,8 @@
 "use client"
-import LoginButton from '@/app/_components/LoginButton';
+import LoginButton from '@/app/(main)/_components/LoginButton';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -26,12 +27,12 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection('hero')}
+            <Link
+              href={"/#"}
               className="text-foreground hover:text-primary transition-colors"
             >
               Home
-            </button>
+            </Link>
             <button
               onClick={() => scrollToSection('skills')}
               className="text-foreground hover:text-primary transition-colors"

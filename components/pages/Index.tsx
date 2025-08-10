@@ -10,8 +10,7 @@ import Navigation from "../Navigation";
 const Index = ({ data }: { data: [PersonalInfo, Skill[], Project[]] }) => {
   const [personalInfo, skill, projects] = data
   return (
-    <div className="min-h-screen">
-      <Navigation />
+  
       <main>
         <section id="home">
           <Hero name={personalInfo.name} bio={personalInfo.description} socialLinks={personalInfo.socialLinks as SocialLink} />
@@ -28,12 +27,7 @@ const Index = ({ data }: { data: [PersonalInfo, Skill[], Project[]] }) => {
           />
         </section>
       </main>
-      <footer className="bg-muted/30 py-8 text-center">
-        <p className="text-muted-foreground">
-          © 2025 Sarowar Hossain.
-        </p>
-      </footer>
-    </div>
+
   );
 };
 

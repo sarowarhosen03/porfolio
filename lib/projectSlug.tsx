@@ -10,5 +10,5 @@ export function decodeSlug(slug: string): {
     const parts = slug.split('-');
     const title = parts.slice(0, -1).join('-');
     const id = parts[parts.length - 1];
-    return { title, id };
+    return { title: decodeURIComponent(title), id };
 }

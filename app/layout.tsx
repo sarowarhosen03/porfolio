@@ -45,7 +45,11 @@ export default async function RootLayout({
 
 
               <Sonner />
+
+
               {children}
+
+
             </SessionProvider>
           </TooltipProvider>
         </ThemeProvider>
