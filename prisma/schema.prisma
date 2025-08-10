@@ -24,6 +24,7 @@ enum ProjectStatus {
 model Project {
   id            String        @id @default(cuid())
   title         String
+  subTitle      String?
   description   String
   technologies  String[]
   status        ProjectStatus @default(DRAFT)

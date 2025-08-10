@@ -41,6 +41,7 @@ import { addProjectAction, editProjectAction } from "../projects/action";
 const defaultProejctstate = {
     id: "",
     title: "",
+    subTitle: "",
     description: "",
     technologies: [],
     status: $Enums.ProjectStatus.DRAFT,
@@ -172,6 +173,14 @@ export default function AddAndEditProject({
                         required
                         placeholder="Project Title"
                         name="title"
+                    />
+
+                    <Input
+                        onChange={handleChange}
+                        value={projectState?.subTitle || ""}
+                        required
+                        placeholder="Project Title"
+                        name="subTitle"
                     />
                     <Textarea
                         onChange={handleChange}

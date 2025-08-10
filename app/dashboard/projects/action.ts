@@ -17,6 +17,9 @@ export async function addProjectAction(
   if (error) return { success: false, error: "Failed to add project." };
   revalidatePath("/dashboard/projects");
   revalidatePath("/dashboard");
+  revalidatePath("/");
+  revalidatePath("/(main)/project/[projectId]", "page");
+
   return { success: true, message: "Project added successfully!", data };
 }
 
@@ -49,5 +52,8 @@ export async function deleteProjectAction(id: string) {
   if (error) return { success: false, error: "Failed to delete project." };
   revalidatePath("/dashboard/projects");
   revalidatePath("/dashboard");
+  revalidatePath("/");
+  revalidatePath("/(main)/project/[projectId]", "page");
+
   return { success: true, message: "Project Deleted successfully!" };
 }
