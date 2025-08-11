@@ -130,7 +130,7 @@ const Projects = ({
 
         {/* View All Projects Button */}
         {isHome && <div className="text-center mt-12">
-          <Link href={"/project"} variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
+          <Link href={"/project"} className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
             View All Projects
           </Link>
         </div>}
