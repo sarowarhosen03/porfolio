@@ -1,4 +1,5 @@
 import Contact from "@/components/Contact";
+import Education from "@/components/Education";
 import Hero from "@/components/Hero";
 
 import { SocialLink } from "@/app/dashboard/profile/action";
@@ -16,6 +17,9 @@ const Index = ({ data }: { data: [PersonalInfo, Skill[], Project[]] }) => {
       </section>
       <section id="skills" >
         <Skills skill={skill} />
+      </section>
+      <section id="education">
+        <Education />
       </section>
       <section id="projects">
         <Projects

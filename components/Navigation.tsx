@@ -39,6 +39,12 @@ const Navigation = () => {
             >
               Skills
             </button>
+            <button
+              onClick={() => scrollToSection('education')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Education
+            </button>
             <Link
               href={'/project'}
 
@@ -84,6 +90,12 @@ const Navigation = () => {
                 className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
               >
                 Skills
+              </button>
+              <button
+                onClick={() => scrollToSection('education')}
+                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+              >
+                Education
               </button>
               <button
                 onClick={() => scrollToSection('projects')}
