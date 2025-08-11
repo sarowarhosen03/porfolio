@@ -7,6 +7,7 @@ export default async function revalidateAllRoute() {
   revalidatePath("/dashboard");
   revalidatePath("/");
   revalidatePath("/(main)/project/[projectId]", "page");
+  revalidatePath("/(main)/project", "page");
   revalidatePath("/dashboard/skills");
   return { status: "ok" };
 }

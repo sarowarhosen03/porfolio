@@ -9,7 +9,9 @@ import Link from "next/link";
 
 const Projects = ({
   projects
+  , isHome = false
 }: {
+  isHome?: boolean
   projects: Project[]
 }) => {
   // Sort projects to put featured ones first
@@ -127,11 +129,11 @@ const Projects = ({
         </div>
 
         {/* View All Projects Button */}
-        <div className="text-center mt-12">
-          <Button variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
+        {isHome && <div className="text-center mt-12">
+          <Link href={"/project"} variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
             View All Projects
-          </Button>
-        </div>
+          </Link>
+        </div>}
       </div>
     </section>
   );
