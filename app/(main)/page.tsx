@@ -18,5 +18,6 @@ export default async function Home() {
   if (error) return <div>Error happened</div>;
   if (!data || !data[0]) return <div>No personal info found</div>;
   const [personalInfo, skills, projects] = data;
+
   return <Index data={[personalInfo, skills, projects]} />;
 }

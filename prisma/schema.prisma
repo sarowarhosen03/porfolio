@@ -18,7 +18,6 @@ enum ProjectStatus {
   DRAFT
   PUBLISHED
   ARCHIVED
-  completed
 }
 
 model Project {

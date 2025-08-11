@@ -10,23 +10,21 @@ import Image from "next/image";
 
 export default function ImageCarousel({ gallery }: { gallery: string[] }) {
   return (
-    <div className="w-full flex text-center">
-      <Carousel
-        // ref={emblaRef}
-        className="w-[95%] "
-      >
+    <div className="w-full flex justify-center items-center text-center relative">
+      <Carousel className="w-full max-w-5xl mx-auto">
         <CarouselContent>
           {gallery.map((img, index) => (
             <CarouselItem key={index}>
-              <div className="p-1 ">
-                <Card>
-                  <CardContent className="flex ">
-                    <div className="relative h-96 w-full">
+              <div className="p-1 flex justify-center items-center">
+                <Card className="w-full">
+                  <CardContent className="flex justify-center items-center">
+                    <div className="relative w-full h-[28rem] max-w-5xl flex justify-center items-center">
                       <Image
                         alt={"thumb"}
-                        layout="fill"
-                        objectFit="cover"
                         src={img}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="rounded-lg"
                       />
                     </div>
                   </CardContent>
@@ -35,8 +33,8 @@ export default function ImageCarousel({ gallery }: { gallery: string[] }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="left-2 z-10" />
+        <CarouselNext className="right-2 z-10" />
       </Carousel>
     </div>
   );
