@@ -1,6 +1,13 @@
-import { uploadFiles } from "@/lib/r2Storage";
+import { deleteFile, uploadFiles } from "@/lib/r2Storage";
 import { NextResponse } from "next/server";
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "100mb",
+    },
+  },
+};
 export async function POST(request: Request) {
   const formData = await request.formData();
   const formDataEntryValues = Array.from(formData.getAll("files"));
@@ -19,4 +26,14 @@ export async function POST(request: Request) {
   return NextResponse.json(uploadResult, {
     status: uploadResult.status,
   });
+}
+
+export async function DELETE(request: Request) {
+  const formData = await request.formData();
+  const urlsValue = formData.get("urls");
+  const urlList = JSON.parse(
+    typeof urlsValue === "string" ? urlsValue : "[]"
+  ) as string[];
+  const res = await deleteFile(urlList);
+  return NextResponse.json(res);
 }

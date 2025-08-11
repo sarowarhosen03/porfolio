@@ -1,7 +1,7 @@
 "use server";
 
 import { Project } from "@/lib/generated/prisma";
-import { deleteFile } from "@/lib/r2Storage";
+import { assetsDelete } from "@/lib/imageUpload";
 import resolvePromise from "@/lib/resolvePromise";
 import { dbClient } from "@/prismaClient";
 import { revalidatePath } from "next/cache";
@@ -50,7 +50,7 @@ export async function deleteProjectAction(id: string, images?: string[]) {
     })
   );
   if (images && images?.length) {
-    await deleteFile(images as string[]);
+    await assetsDelete(images as string[]);
   }
 
   if (error) return { success: false, error: "Failed to delete project." };

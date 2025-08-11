@@ -21,8 +21,26 @@ export const assetsUploads = async (files: File[]) => {
     }
     throw new Error("Failed to upload");
   } catch (error) {
-    console.log(error);
-    
+    throw new Error("Failed to upload");
+  }
+};
+
+export const assetsDelete = async (urls: string[]) => {
+  const formData = new FormData();
+  formData.append("urls", JSON.stringify(urls));
+
+  try {
+    // Send the files to the server
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/upload`,
+      {
+        method: "DELETE",
+        body: formData,
+      }
+    );
+
+    return await response.json();
+  } catch (error) {
     throw new Error("Failed to upload");
   }
 };

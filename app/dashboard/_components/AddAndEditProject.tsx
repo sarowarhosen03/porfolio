@@ -21,11 +21,10 @@ import {
 import TagInput from "@/components/ui/TagInput";
 import { Textarea } from "@/components/ui/textarea";
 import { $Enums, Project, Skill } from "@/lib/generated/prisma";
-import { deleteFile } from "@/lib/r2Storage";
 import resolvePromise from "@/lib/resolvePromise";
 import { } from "@radix-ui/react-alert-dialog";
 // Remove this line; do not import File from "buffer"
-import { assetsUploads } from "@/lib/imageUpload";
+import { assetsDelete, assetsUploads } from "@/lib/imageUpload";
 import { DeleteIcon, ImageIcon, Loader2Icon, Plus } from "lucide-react";
 import { default as Image } from "next/image";
 import {
@@ -101,7 +100,7 @@ export default function AddAndEditProject({
                 );
 
                 if (fileToDelete?.length) {
-                    await deleteFile(fileToDelete)
+                    await assetsDelete(fileToDelete)
                     imageGlary = projectState.gallery.filter((img: string) => !fileToDelete.includes(img))
                 }
 
