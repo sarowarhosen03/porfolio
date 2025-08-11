@@ -52,7 +52,7 @@ export default function ProjectComponent({
                   </Badge>
                 </div>
                 <p className="text-muted-foreground mb-3">
-                  {project.description}
+                  {project.subTitle}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (

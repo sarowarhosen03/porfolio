@@ -4,22 +4,6 @@ This is a personal portfolio website built with Next.js, TypeScript, and Tailwin
 
 **Live URL:** https://sarowar.dev
 
-## Screenshots
-
-### Home Page
-![Home Page](./preview/home.png)
-
-### Projects Page
-![Projects Page](./preview/projects-dash.png)
-
-### Dashboard
-![Dashboard](./preview/dash.png)
-
-### Add Project
-![Add Project](./preview/add-project.png)
-
-### Contact
-![Contact](./preview/contact.png)
 
 
 ## Features
