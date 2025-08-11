@@ -1,3 +1,5 @@
+'use client'
+
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -6,14 +8,37 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import Image from "next/image";
 
-export default function ImageCarousel({ gallery }: { gallery: string[] }) {
+export default function ImageCarousel({ gallery }: { gallery: string }) {
+  const galleryArray = gallery ? JSON.parse(gallery) as string[] : [];
+
+
+
   return (
     <div className="w-full flex justify-center items-center text-center relative">
-      <Carousel className="w-full max-w-5xl mx-auto">
+      <style jsx>{`
+        .is-wheel-dragging {
+          cursor: grabbing !important;
+        }
+      `}</style>
+      <Carousel
+        className="w-full max-w-5xl mx-auto"
+        opts={{
+          align: "start",
+          loop: true,
+          dragFree: false,
+          containScroll: "trimSnaps",
+        }}
+        plugins={[WheelGesturesPlugin({
+          forceWheelAxis: "y",
+
+        })
+        ]}
+      >
         <CarouselContent>
-          {gallery.map((img, index) => (
+          {galleryArray.map((img: string, index: number) => (
             <CarouselItem key={index}>
               <div className="p-1 flex justify-center items-center">
                 <Card className="w-full">
