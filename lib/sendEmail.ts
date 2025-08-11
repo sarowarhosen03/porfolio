@@ -25,7 +25,6 @@ export default async function sendEmail(contactState: {
     await transporter.sendMail(mailOptions);
     return { success: true, message: "Email sent successfully" };
   } catch (e) {
-    console.error("Error sending email:", e);
     return { success: false, message: "Failed to send email" };
   }
 }

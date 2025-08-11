@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 
 export const config = {
   api: {
+    responseLimit: false,
     bodyParser: {
-      sizeLimit: "100mb",
+      sizeLimit: "20mb",
     },
   },
 };
