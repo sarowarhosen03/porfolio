@@ -21,6 +21,7 @@ export async function addProjectAction(
   revalidatePath("/dashboard");
   revalidatePath("/");
   revalidatePath("/(main)/project/[projectId]", "page");
+  revalidatePath("/(main)/project", "page");
 
   return { success: true, message: "Project added successfully!", data };
 }
@@ -58,6 +59,7 @@ export async function deleteProjectAction(id: string, images?: string[]) {
   revalidatePath("/dashboard");
   revalidatePath("/");
   revalidatePath("/(main)/project/[projectId]", "page");
+  revalidatePath("/(main)/project", "page");
 
   return { success: true, message: "Project Deleted successfully!" };
 }
