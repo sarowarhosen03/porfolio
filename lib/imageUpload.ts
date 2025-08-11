@@ -15,7 +15,6 @@ export const assetsUploads = async (files: File[]) => {
     );
 
     const result: { success: boolean; urls: string[] } = await response.json();
-    console.log({ result });
 
     if (result.success) {
       return result;

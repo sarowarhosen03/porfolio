@@ -1,6 +1,7 @@
 "use server";
 
 import { Project } from "@/lib/generated/prisma";
+import { deleteFile } from "@/lib/r2Storage";
 import resolvePromise from "@/lib/resolvePromise";
 import { dbClient } from "@/prismaClient";
 import { revalidatePath } from "next/cache";
@@ -14,6 +15,7 @@ export async function addProjectAction(
       data: payload,
     })
   );
+
   if (error) return { success: false, error: "Failed to add project." };
   revalidatePath("/dashboard/projects");
   revalidatePath("/dashboard");
@@ -41,13 +43,15 @@ export async function editProjectAction(
   revalidatePath("/dashboard");
   return { success: true, message: "Project updated successfully!", data };
 }
-export async function deleteProjectAction(id: string) {
+export async function deleteProjectAction(id: string, images?: string[]) {
   const [data, error] = await resolvePromise(
     dbClient.project.delete({
       where: { id },
     })
   );
-  console.log(data, error);
+  if (images && images?.length) {
+    await deleteFile(images as string[]);
+  }
 
   if (error) return { success: false, error: "Failed to delete project." };
   revalidatePath("/dashboard/projects");

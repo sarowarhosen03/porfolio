@@ -31,10 +31,6 @@ export async function uploadFile(
   try {
     // Upload the file to Cloudflare R2
     const data = await R2.send(putObjectCommandClient);
-    console.log({
-      data,
-      putObjectCommandClient,
-    });
 
     // Construct the file's URL
     const fileUrl = `${process.env.CLOUDFLARE_CONTENT}/${BUCKET_NAME}/${key}`;
@@ -87,13 +83,14 @@ export async function deleteFile(urls: string[]) {
     return R2.send(
       new DeleteObjectCommand({
         Bucket: BUCKET_NAME,
-        Key: url.replace(`${process.env.CLOUDFLARE_CONTENT!}/`, ""),
+        Key: url.replace(`${process.env.CLOUDFLARE_CONTENT!}/portfolio/`, ""),
       })
     );
   });
 
   try {
     await Promise.all(keys);
+
     R2.destroy();
     return { error: false, message: "all files deleted successfully" };
   } catch (error: any) {

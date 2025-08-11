@@ -23,10 +23,11 @@ import { toast } from "sonner";
 type DeleteDialogProps = {
     id: string;
     title: string;
-    deleteAction: (id: string) => Promise<{ success: boolean; error: string; message?: undefined; } | { success: boolean; message: string; error?: undefined; }>;
+    images?: string[]
+    deleteAction: (id: string, images?: string[]) => Promise<{ success: boolean; error: string; message?: undefined; } | { success: boolean; message: string; error?: undefined; }>;
 };
 
-export default function DeleteDialog({ id, title, deleteAction }: DeleteDialogProps) {
+export default function DeleteDialog({ id, title, images, deleteAction }: DeleteDialogProps) {
     const [disabled, setDisabled] = useState(true);
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
@@ -58,7 +59,7 @@ export default function DeleteDialog({ id, title, deleteAction }: DeleteDialogPr
                         onClick={async (e) => {
                             e.preventDefault();
                             startTransition(async () => {
-                                const [data, error] = await resolvePromise(deleteAction(id))
+                                const [data, error] = await resolvePromise(deleteAction(id, images))
 
                                 if (error || !data?.success) {
                                     toast.error("Failed to delete project");

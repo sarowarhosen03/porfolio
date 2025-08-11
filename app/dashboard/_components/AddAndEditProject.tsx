@@ -48,9 +48,8 @@ const defaultProejctstate = {
     featured: false,
     sourceCodeUrl: "",
     liveUrl: "",
-    imageUrl: "",
     gallery: [],
-    blogContent: "",
+
 };
 export default function AddAndEditProject({
     skills,
@@ -87,52 +86,50 @@ export default function AddAndEditProject({
 
     async function handleAddProjects(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        startTransition(() => {
-            (async () => {
+        startTransition(async () => {
 
-                const fileToUpload = imageState.filter(img => typeof img !== "string")
-
-
-                const images = await assetsUploads(fileToUpload)
+            const fileToUpload = imageState.filter(img => typeof img !== "string")
 
 
-                let imageGlary: string[] = [...projectState.gallery]
-                if (editState) {
-                    const fileToDelete = projectState.gallery.filter(
-                        (img) => !imageState.includes(img)
-                    );
-
-                    if (fileToDelete?.length) {
-                        await deleteFile(fileToDelete)
-                        imageGlary = projectState.gallery.filter((img: string) => !fileToDelete.includes(img))
-                    }
+            const images = await assetsUploads(fileToUpload)
 
 
-                }
-                if (images.success && images?.urls) {
-                    imageGlary.push(...images?.urls);
-                }
-
-
-                const [data, error] = await resolvePromise(
-                    editState
-                        ? editProjectAction({
-                            ...projectState, id: editState.id,
-                            gallery: imageGlary
-                        })
-                        : addProjectAction({
-                            ...projectState,
-                            gallery: imageGlary
-                        })
+            let imageGlary: string[] = [...projectState.gallery]
+            if (editState) {
+                const fileToDelete = projectState.gallery.filter(
+                    (img) => !imageState.includes(img)
                 );
-                if (error || !data?.success) {
-                    toast.error("Soothing Went Wrong");
-                } else {
-                    setIsOpen(false);
-                    setProjectState(defaultProejctstate);
-                    toast.success(data?.message || "Project added successfully!");
+
+                if (fileToDelete?.length) {
+                    await deleteFile(fileToDelete)
+                    imageGlary = projectState.gallery.filter((img: string) => !fileToDelete.includes(img))
                 }
-            })();
+
+
+            }
+            if (images.success && images?.urls) {
+                imageGlary.push(...images?.urls);
+            }
+
+
+            const [data, error] = await resolvePromise(
+                editState
+                    ? editProjectAction({
+                        ...projectState, id: editState.id,
+                        gallery: imageGlary
+                    })
+                    : addProjectAction({
+                        ...projectState,
+                        gallery: imageGlary
+                    })
+            );
+            if (error || !data?.success) {
+                toast.error("Soothing Went Wrong");
+            } else {
+                setIsOpen(false);
+                setProjectState(defaultProejctstate);
+                toast.success(data?.message || "Project added successfully!");
+            }
         });
     }
     function handleChange(
@@ -148,145 +145,159 @@ export default function AddAndEditProject({
 
     return (
         <Dialog
+
             open={isOpen}
             onOpenChange={(e) => {
                 if (!e) {
                     setEditState(null);
+                    setImageState([])
                 }
                 setIsOpen(e);
             }}
         >
             <DialogTrigger asChild>
-                <Button className="bg-gradient-primary">
+                <Button
+                    onClick={(e) => {
+                        setImageState([])
+                    }}
+                    className="bg-gradient-primary">
                     <Plus className="h-4 w-4 mr-2" />
                     Add Project
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md ">
                 <DialogHeader>
                     <DialogTitle>{editState ? "Edit" : "Add New"} Project</DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleAddProjects} className="space-y-4">
-                    <Input
-                        onChange={handleChange}
-                        value={projectState.title}
-                        required
-                        placeholder="Project Title"
-                        name="title"
-                    />
-
-                    <Input
-                        onChange={handleChange}
-                        value={projectState?.subTitle || ""}
-                        required
-                        placeholder="Project Title"
-                        name="subTitle"
-                    />
-                    <Textarea
-                        onChange={handleChange}
-                        value={projectState.description}
-                        required
-                        placeholder="Project Description"
-                        rows={10}
-                        name="description"
-                    />
-
-                    <div className="flex flex-row gap-4">
-                        <Select
-                            required
-                            name="status"
-                            value={projectState.status}
-                            onValueChange={(value: $Enums.ProjectStatus) =>
-                                setProjectState((prev) => ({ ...prev, status: value }))
-                            }
-                        >
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Select Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    {Object.keys($Enums.ProjectStatus).map((item) => (
-                                        <SelectItem value={item} key={item}>
-                                            {item}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-
-                        <div className="flex items-center gap-3">
-                            <Label htmlFor="featured">Featured</Label>
-                            <Checkbox
-                                id="featured"
-                                name="featured"
-                                checked={projectState.featured}
-                                onCheckedChange={(e) =>
-                                    setProjectState((prev) => ({ ...prev, featured: Boolean(e) }))
-                                }
-                            />
-                        </div>
-                    </div>
-
-                    <Input
-                        onChange={handleChange}
-                        value={projectState.sourceCodeUrl || ""}
-                        name="sourceCodeUrl"
-                        placeholder="Source Code"
-                    />
-                    <Input
-                        onChange={handleChange}
-                        value={projectState.liveUrl || ""}
-                        name="liveUrl"
-                        placeholder="live url"
-                    />
-
-                    <ImageSelector
-                        imageState={imageState}
-                        setImageState={setImageState}
-                    />
-                    <TagInput
-                        value={projectState.technologies}
-                        onChange={(newUpdate) => {
-                            setProjectState((prev) => ({ ...prev, technologies: newUpdate }));
-                            // console.log(newUpdate);
+                <div className="max-h-[70vh] overflow-y-auto pr-2">
+                    <form
+                        style={{
+                            overflowY: "auto",
+                            scrollbarWidth: "thin",
+                            scrollbarColor: "#888 #f1f1f1",
+                            msOverflowStyle: "auto",
                         }}
-                        placeholder="technologies"
-                    />
-                    <div className="flex flex-wrap gap-2">
-                        {skills
-                            .filter(
-                                (skill) => !projectState.technologies.includes(skill.title)
-                            )
-                            .map((skill, index) => (
-                                <Badge
-                                    key={index}
-                                    className="flex items-center gap-1 bg-primary-foreground text-foreground"
-                                    onClick={() =>
-                                        setProjectState((prev) => ({
-                                            ...prev,
-                                            technologies: [...prev.technologies, skill.title],
-                                        }))
-                                    }
-                                >
-                                    {skill.title}
-                                </Badge>
-                            ))}
-                    </div>
+                        onSubmit={handleAddProjects} className="space-y-4">
+                        <Input
+                            onChange={handleChange}
+                            value={projectState.title}
+                            required
+                            placeholder="Project Title"
+                            name="title"
+                        />
 
-                    <Button
-                        type="submit"
-                        disabled={isPending}
-                        className="w-full bg-gradient-primary"
-                    >
-                        {isPending && (
-                            <>
-                                <Loader2Icon className="animate-spin" />
-                                Please wait
-                            </>
-                        )}
-                        {!isPending && `${editState ? "Edit" : "Add"} Project`}
-                    </Button>
-                </form>
+                        <Input
+                            onChange={handleChange}
+                            value={projectState?.subTitle || ""}
+                            required
+                            placeholder="Project Title"
+                            name="subTitle"
+                        />
+                        <Textarea
+                            onChange={handleChange}
+                            value={projectState.description}
+                            required
+                            placeholder="Project Description"
+                            rows={10}
+                            name="description"
+                        />
+
+                        <div className="flex flex-row gap-4">
+                            <Select
+                                required
+                                name="status"
+                                value={projectState.status}
+                                onValueChange={(value: $Enums.ProjectStatus) =>
+                                    setProjectState((prev) => ({ ...prev, status: value }))
+                                }
+                            >
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Select Status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {Object.keys($Enums.ProjectStatus).map((item) => (
+                                            <SelectItem value={item} key={item}>
+                                                {item}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+
+                            <div className="flex items-center gap-3">
+                                <Label htmlFor="featured">Featured</Label>
+                                <Checkbox
+                                    id="featured"
+                                    name="featured"
+                                    checked={projectState.featured}
+                                    onCheckedChange={(e) =>
+                                        setProjectState((prev) => ({ ...prev, featured: Boolean(e) }))
+                                    }
+                                />
+                            </div>
+                        </div>
+
+                        <Input
+                            onChange={handleChange}
+                            value={projectState.sourceCodeUrl || ""}
+                            name="sourceCodeUrl"
+                            placeholder="Source Code"
+                        />
+                        <Input
+                            onChange={handleChange}
+                            value={projectState.liveUrl || ""}
+                            name="liveUrl"
+                            placeholder="live url"
+                        />
+
+                        <ImageSelector
+                            imageState={imageState}
+                            setImageState={setImageState}
+                        />
+                        <TagInput
+                            value={projectState.technologies}
+                            onChange={(newUpdate) => {
+                                setProjectState((prev) => ({ ...prev, technologies: newUpdate }));
+                            }}
+                            placeholder="technologies"
+                        />
+                        <div className="flex flex-wrap gap-2">
+                            {skills
+                                .filter(
+                                    (skill) => !projectState.technologies.includes(skill.title)
+                                )
+                                .map((skill, index) => (
+                                    <Badge
+                                        key={index}
+                                        className="flex items-center gap-1 bg-primary-foreground text-foreground"
+                                        onClick={() =>
+                                            setProjectState((prev) => ({
+                                                ...prev,
+                                                technologies: [...prev.technologies, skill.title],
+                                            }))
+                                        }
+                                    >
+                                        {skill.title}
+                                    </Badge>
+                                ))}
+                        </div>
+
+                        <Button
+                            type="submit"
+                            disabled={isPending}
+                            className="w-full bg-gradient-primary"
+                        >
+                            {isPending && (
+                                <>
+                                    <Loader2Icon className="animate-spin" />
+                                    Please wait
+                                </>
+                            )}
+                            {!isPending && `${editState ? "Edit" : "Add"} Project`}
+                        </Button>
+                    </form>
+                </div>
             </DialogContent>
         </Dialog>
     );

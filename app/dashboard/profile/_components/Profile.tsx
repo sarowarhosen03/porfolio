@@ -26,7 +26,6 @@ export default function Profile({
         newLinks[index][field as keyof (typeof newLinks)[0]] = value;
         setSocialLinks(newLinks);
     };
-    console.log(info);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();

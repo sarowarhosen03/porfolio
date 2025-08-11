@@ -70,7 +70,7 @@ export default function ProjectComponent({
                   <Edit className="h-4 w-4" />
                 </Button>
 
-                <DeleteDialog id={project.id} title={project.title} deleteAction={deleteProjectAction} />
+                <DeleteDialog id={project.id} images={project.gallery} title={project.title} deleteAction={deleteProjectAction} />
 
               </div>
             </div>
