@@ -25,7 +25,7 @@ export default async function projectDetailsPage({
         })
     );
     if (error) {
-        return <div>Error happend</div>;
+        throw new Error("Failed to load project details");
     }
     if (!data) {
         notFound();

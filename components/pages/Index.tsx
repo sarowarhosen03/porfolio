@@ -20,7 +20,7 @@ const Index = ({ data }: { data: [PersonalInfo, Skill[], Project[]] }) => {
       <section id="projects">
         <Projects
           isHome={projects.length > 3}
-          projects={projects} />
+          projects={projects.slice(0, 3)} />
       </section>
       <section id="contact">
         <Contact

@@ -11,6 +11,7 @@ export default async function Home() {
         where: {
           status: "PUBLISHED",
         },
+        take:4
       }),
     ])
   );
