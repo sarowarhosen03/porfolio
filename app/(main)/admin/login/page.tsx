@@ -19,7 +19,7 @@ export default function page() {
         if (status === "authenticated") {
             router.push("/dashboard");
         }
-    }, [])
+    }, [status])
 
 
     return (

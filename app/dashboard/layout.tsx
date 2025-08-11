@@ -6,11 +6,13 @@ import {
   LayoutDashboard,
   LogOut,
   Settings,
-  User,
+  User
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
+import revalidateAllRoute from "./action";
 
 export default function DashboardLayout({
   children,
@@ -69,11 +71,10 @@ export default function DashboardLayout({
               return (
                 <Link key={item.id} href={item.id}>
                   <button
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left ${
-                      pathName === item.id
-                        ? "bg-primary text-primary-foreground"
-                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                    }`}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left ${pathName === item.id
+                      ? "bg-primary text-primary-foreground"
+                      : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                      }`}
                   >
                     <Icon className="h-5 w-5" />
                     {item.label}
@@ -81,6 +82,17 @@ export default function DashboardLayout({
                 </Link>
               );
             })}
+            <Button variant={"outline"}
+              onClick={async () => {
+                await revalidateAllRoute()
+                toast.success("revalidate done")
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left"
+            >
+
+              Revalidate Path
+
+            </Button>
           </nav>
         </aside>
 
