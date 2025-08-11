@@ -18,7 +18,7 @@ export default async function sendEmail(contactState: {
     });
     const mailOptions = {
       from: `"${contactState.name}" <${contactState.email}>`,
-      to: process.env.EMAIL_USER,
+      to: "hi@sarowar.dev",
       subject: `portfolio contact: ${contactState.subject}`,
       text: contactState.message,
     };
