@@ -9,5 +9,7 @@ declare namespace NodeJS {
     AUTH_GOOGLE_ID: string;
     AUTH_GOOGLE_SECRET: string;
     DATABASE_URL: string; // This is the Prisma connection string
+    EMAIL_SMTP: string;
+    EMAIL_PORT: string;
   }
 }

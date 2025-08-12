@@ -9,15 +9,15 @@ export default async function sendEmail(contactState: {
 }) {
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      host: process.env.EMAIL_SMTP,
+      port: parseInt(process.env.EMAIL_PORT || "465"),
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
     });
-    console.log(contactState.email);
+
+
     
     // Create beautiful HTML email template
     const htmlTemplate = `
@@ -194,8 +194,8 @@ export default async function sendEmail(contactState: {
     `;
     
     const mailOptions = {
-      from: `"${contactState.name}" <${contactState.email}>`,
-      to: process.env.EMAIL_USER,
+      from: `"${contactState.name}" <portfolio@sarowar.dev>`,
+      to: "hi@sarowar.dev",
       subject: `Portfolio Contact: ${contactState.subject}`,
       text: `
         New contact message from your portfolio:
@@ -212,7 +212,68 @@ export default async function sendEmail(contactState: {
       html: htmlTemplate,
     };
     
-    await transporter.sendMail(mailOptions);
+
+
+    // Auto-reply to the sender
+    const autoReplyHtml = `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Thanks for reaching out</title>
+        </head>
+        <body style="margin:0;padding:0;background:#f8f9fa;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;color:#333;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td align="center" style="padding:24px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.08);">
+                  <tr>
+                    <td style="padding:28px 24px;text-align:center;background:linear-gradient(135deg,rgb(12,125,33) 0%, rgb(11,66,5) 100%);color:#fff;">
+                      <div style="font-size:22px;font-weight:700;">Thanks for reaching out, ${contactState.name}!</div>
+                      <div style="opacity:0.9;margin-top:6px;font-size:14px;">We've received your message and will get back to you soon.</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:24px 24px 6px 24px;">
+                      <div style="font-size:16px;margin-bottom:8px;">Hi ${contactState.name},</div>
+                      <div style="font-size:14px;line-height:1.7;color:#555;">
+                        Thanks for contacting me via my portfolio. I usually reply within 24–48 hours.
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:16px 24px;">
+                      <div style="font-weight:600;margin-bottom:8px;color:#333;">Your message</div>
+                      <div style="background:#f8f9fa;border-left:4px solid #28a745;padding:12px 14px;border-radius:6px;white-space:pre-wrap;color:#555;">
+                        ${contactState.message}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:16px 24px 24px 24px;color:#6c757d;font-size:12px;border-top:1px solid #e9ecef;">
+                      This is an automated acknowledgement from my portfolio. If you need to follow up, reply to this email.
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `;
+
+    const autoReplyOptions = {
+      from: `"Sarowar Hossain" <hi@sarowar.dev>`,
+      to: contactState.email,
+      replyTo: "hi@sarowar.dev",
+      subject: `Re: ${contactState.subject}`,
+      text: `Hi ${contactState.name},\n\nThanks for reaching out! I've received your message and will reply within 24–48 hours.\n\nYour message:\n${contactState.message}\n\n— Sarowar`,
+      html: autoReplyHtml,
+    };
+
+    await Promise.all([transporter.sendMail(mailOptions), transporter.sendMail(autoReplyOptions)]);
+
     return { success: true, message: "Email sent successfully" };
   } catch (e) {
     console.error("Email sending error:", e);
