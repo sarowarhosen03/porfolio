@@ -273,7 +273,7 @@ export default async function sendEmail(contactState: {
     };
 
     await Promise.all([transporter.sendMail(mailOptions), transporter.sendMail(autoReplyOptions)]);
-
+transporter.close()
     return { success: true, message: "Email sent successfully" };
   } catch (e) {
     console.error("Email sending error:", e);
