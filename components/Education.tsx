@@ -14,7 +14,7 @@ interface EducationItem {
 
 const educationData: EducationItem[] = [
     {
-        degree: "Higher School Certificate (HSC)",
+        degree: "Higher Secondary Certificate (HSC)",
         institution: "Dinajpur Govt. City College",
         location: "Dinajpur, Bangladesh",
         duration: "2023",
