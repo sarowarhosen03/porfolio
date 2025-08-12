@@ -273,3 +273,130 @@ All colors MUST be HSL.
     box-shadow: 0 0 30px hsl(142.1 70.6% 45.3% / 0.6);
   }
 }
+
+/* Enhanced Markdown Styles for Project Details */
+.markdown-content {
+  @apply text-foreground leading-relaxed;
+}
+
+.markdown-content h1 {
+  @apply text-3xl font-bold mb-6 mt-8 text-foreground border-b border-border pb-2;
+}
+
+.markdown-content h2 {
+  @apply text-2xl font-semibold mb-4 mt-6 text-foreground;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-semibold mb-3 mt-5 text-foreground;
+}
+
+.markdown-content h4 {
+  @apply text-lg font-medium mb-2 mt-4 text-foreground;
+}
+
+.markdown-content h5 {
+  @apply text-base font-medium mb-2 mt-3 text-foreground;
+}
+
+.markdown-content h6 {
+  @apply text-sm font-medium mb-2 mt-3 text-muted-foreground;
+}
+
+.markdown-content p {
+  @apply mb-4 text-muted-foreground leading-7;
+}
+
+.markdown-content ul {
+  @apply mb-4 pl-6 space-y-2;
+}
+
+.markdown-content ol {
+  @apply mb-4 pl-6 space-y-2;
+}
+
+.markdown-content li {
+  @apply text-muted-foreground leading-6;
+}
+
+.markdown-content ul li {
+  @apply list-disc;
+}
+
+.markdown-content ol li {
+  @apply list-decimal;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-primary bg-muted/50 pl-4 py-2 my-6 italic text-muted-foreground;
+}
+
+.markdown-content code {
+  @apply bg-muted text-foreground px-2 py-1 rounded text-sm font-mono;
+}
+
+.markdown-content pre {
+  @apply bg-muted border border-border rounded-lg p-4 my-6 overflow-x-auto;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0 text-sm;
+}
+
+.markdown-content a {
+  @apply text-primary hover:text-primary/80 underline underline-offset-2 transition-colors;
+}
+
+.markdown-content strong {
+  @apply font-semibold text-foreground;
+}
+
+.markdown-content em {
+  @apply italic text-muted-foreground;
+}
+
+.markdown-content hr {
+  @apply border-border my-8;
+}
+
+.markdown-content table {
+  @apply w-full border-collapse border border-border my-6;
+}
+
+.markdown-content th {
+  @apply bg-muted border border-border px-4 py-2 text-left font-semibold text-foreground;
+}
+
+.markdown-content td {
+  @apply border border-border px-4 py-2 text-muted-foreground;
+}
+
+.markdown-content img {
+  @apply rounded-lg shadow-lg my-6 max-w-full h-auto;
+}
+
+.markdown-content .highlight {
+  @apply bg-yellow-100 dark:bg-yellow-900/20 px-1 rounded;
+}
+
+/* Syntax highlighting for code blocks */
+.markdown-content pre[class*="language-"] {
+  @apply bg-muted border border-border rounded-lg p-4 my-6 overflow-x-auto;
+}
+
+.markdown-content code[class*="language-"] {
+  @apply text-sm font-mono;
+}
+
+/* Custom scrollbar for code blocks */
+.markdown-content pre::-webkit-scrollbar {
+  @apply h-2;
+}
+
+.markdown-content pre::-webkit-scrollbar-track {
+  @apply bg-muted rounded;
+}
+
+.markdown-content pre::-webkit-scrollbar-thumb {
+  @apply bg-border rounded hover:bg-border/80;
+}
