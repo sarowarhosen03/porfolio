@@ -156,7 +156,7 @@ export default function AddAndEditProject({
         >
             <DialogTrigger asChild>
                 <Button
-                    onClick={(e) => {
+                    onClick={() => {
                         setImageState([])
                     }}
                     className="bg-gradient-primary">
@@ -170,13 +170,8 @@ export default function AddAndEditProject({
                 </DialogHeader>
                 <div className="max-h-[70vh] overflow-y-auto pr-2">
                     <form
-                        style={{
-                            overflowY: "auto",
-                            scrollbarWidth: "thin",
-                            scrollbarColor: "#888 #f1f1f1",
-                            msOverflowStyle: "auto",
-                        }}
-                        onSubmit={handleAddProjects} className="space-y-4">
+                        className="scrollbar-thin space-y-4"
+                        onSubmit={handleAddProjects} >
                         <Input
                             onChange={handleChange}
                             value={projectState.title}
@@ -332,7 +327,7 @@ export function ImageSelector({ imageState, setImageState }: ImageSelectorProps)
             />
             <div className="flex flex-wrap gap-2 cursor-pointer">
                 {imageState.map((src, index) => (
-                    <div key={index} className="relative w-[150px] h-[100px]">
+                    <div key={index} className="relative w-[150px] h-[100px] overflow-y-auto">
                         <Image
                             src={typeof src === "string" ? src : URL.createObjectURL(src)}
                             alt={`Image ${index}`}
