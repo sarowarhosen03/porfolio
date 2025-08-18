@@ -140,16 +140,23 @@ const Projects = ({
                     <div className="aspect-video bg-gradient-primary/20 flex items-center justify-center">
                       <span className="text-muted-foreground">
 
-                        {project.gallery.length ?
-                          <Image
-                            height={200}
-                            width={300}
-                            className="h-auto w-full"
-                            src={project.gallery[0]}
-                            alt="project image"
-                          /> : "Project image"
+                        <div className="aspect-video bg-gradient-primary/20 flex items-center justify-center">
+                          {project.gallery.length ? (
+                            <div className="flex items-center justify-center w-full h-full">
+                              <Image
+                                src={project.gallery[0]}
+                                alt="project image"
+                                width={600}
+                                height={400}
+                                className="h-full w-full object-cover"
+                              />
 
-                        }
+                            </div>
+                          ) : (
+                            <span className="text-muted-foreground">Project image</span>
+                          )}
+                        </div>
+
 
 
                       </span>
