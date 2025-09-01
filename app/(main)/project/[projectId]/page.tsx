@@ -16,6 +16,7 @@ export default async function projectDetailsPage({
 }: {
     params: Promise<{ projectId: string }>;
 }) {
+
     const { projectId } = await params;
     const { title, id } = decodeSlug(projectId);
 
@@ -36,6 +37,7 @@ export default async function projectDetailsPage({
     // Use remark to convert markdown into HTML string
     const processedContent = await remark().use(html).process(data.description);
     const contentHtml = processedContent.toString();
+    console.log(data);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">

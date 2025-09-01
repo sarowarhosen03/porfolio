@@ -34,10 +34,22 @@ const Navigation = () => {
               Home
             </Link>
             <button
+              onClick={() => scrollToSection('services')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Services
+            </button>
+            <button
               onClick={() => scrollToSection('skills')}
               className="text-foreground hover:text-primary transition-colors"
             >
               Skills
+            </button>
+            <button
+              onClick={() => scrollToSection('experience')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Experience
             </button>
             <button
               onClick={() => scrollToSection('education')}
@@ -51,6 +63,12 @@ const Navigation = () => {
               className="text-foreground hover:text-primary transition-colors"
             >
               Projects
+            </Link>
+            <Link
+              href={'/about'}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              About
             </Link>
             <button
               onClick={() => scrollToSection('contact')}
@@ -86,10 +104,22 @@ const Navigation = () => {
                 Home
               </button>
               <button
+                onClick={() => scrollToSection('services')}
+                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+              >
+                Services
+              </button>
+              <button
                 onClick={() => scrollToSection('skills')}
                 className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
               >
                 Skills
+              </button>
+              <button
+                onClick={() => scrollToSection('experience')}
+                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+              >
+                Experience
               </button>
               <button
                 onClick={() => scrollToSection('education')}
@@ -103,6 +133,12 @@ const Navigation = () => {
               >
                 Projects
               </button>
+              <Link
+                href={'/about'}
+                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+              >
+                About
+              </Link>
               <button
                 onClick={() => scrollToSection('contact')}
                 className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
