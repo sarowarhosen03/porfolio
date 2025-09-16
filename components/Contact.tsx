@@ -17,8 +17,9 @@ const Contact = () => {
             life
           </p>
         </div>
-
+        {/* Contact Form */}
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
+          <SendMessageForm />
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
@@ -75,8 +76,7 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <SendMessageForm />
+
         </div>
       </div>
     </section>
