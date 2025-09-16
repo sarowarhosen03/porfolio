@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
-  Atom,
   Boxes,
   Cloud,
   Database,
@@ -16,16 +15,18 @@ import {
   Server,
   Ship,
   Sparkles,
-  Wind,
+  Terminal,
+  Wind
 } from "lucide-react";
 
 const STATIC_SKILLS: { category: string; items: { name: string }[] }[] = [
   {
     category: "Frontend",
     items: [
-      { name: "React" },
+
       { name: "Next.js" },
       { name: "TypeScript" },
+      { name: "Redux" },
       { name: "Tailwind CSS" },
       { name: "Shadcn/ui" },
     ],
@@ -35,7 +36,9 @@ const STATIC_SKILLS: { category: string; items: { name: string }[] }[] = [
     items: [
       { name: "Node.js" },
       { name: "Prisma" },
+      { name: "MySQL" },
       { name: "PostgreSQL" },
+      { name: "MongoDB" },
       { name: "REST / RPC" },
     ],
   },
@@ -46,6 +49,8 @@ const STATIC_SKILLS: { category: string; items: { name: string }[] }[] = [
       { name: "Git & GitHub" },
       { name: "AWS S3" },
       { name: "Vercel" },
+      { name: "Coolify" },
+      { name: "Linux" },
     ],
   },
   {
@@ -66,19 +71,25 @@ const CATEGORY_META: Record<string, { icon: React.ComponentType<{ className?: st
 };
 
 const SKILL_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
-  React: Atom,
+
   "Next.js": Rocket,
   TypeScript: FileType,
   "Tailwind CSS": Wind,
+  Tailwindcss: Wind,
   "Shadcn/ui": Layout,
+  Redux: Boxes,
   "Node.js": Server,
   Prisma: Database,
+  MongoDB: Database,
+  MySQL: Database,
   PostgreSQL: Database,
   "REST / RPC": Network,
   Docker: Ship,
   "Git & GitHub": GitBranch,
   "AWS S3": Cloud,
   Vercel: Rocket,
+  Coolify: Cloud,
+  Linux: Terminal,
   Jest: FlaskConical,
   Playwright: Drama,
   "Responsive Design": Palette,

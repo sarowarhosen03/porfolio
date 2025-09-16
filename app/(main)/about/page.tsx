@@ -19,6 +19,38 @@ export default function AboutPage() {
                 </p>
             </section>
 
+            <section className="max-w-5xl mx-auto mt-12">
+                <h2 className="text-3xl font-bold mb-4">Employment History</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="p-6 rounded-lg border border-border bg-gradient-card">
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-xl font-semibold">Support Engineer – Reactive Accelerator Batch 3</h3>
+                                <p className="text-muted-foreground">Learn with Sumit</p>
+                            </div>
+                            <span className="text-sm text-muted-foreground">Apr 2024 – Aug 2025</span>
+                        </div>
+                        <ul className="mt-4 list-disc pl-5 text-muted-foreground space-y-2">
+                            <li>Guided learners through Redux, Next.js API routes, and server‑side rendering.</li>
+                            <li>Helped with project reviews, troubleshooting, and performance improvements.</li>
+                        </ul>
+                    </div>
+                    <div className="p-6 rounded-lg border border-border bg-gradient-card">
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-xl font-semibold">Support Engineer – Reactive Accelerator Batch 2</h3>
+                                <p className="text-muted-foreground">Learn with Sumit</p>
+                            </div>
+                            <span className="text-sm text-muted-foreground">Oct 2024 – Feb 2025</span>
+                        </div>
+                        <ul className="mt-4 list-disc pl-5 text-muted-foreground space-y-2">
+                            <li>Provided technical support and mentorship for advanced React/Next.js.</li>
+                            <li>Assisted in debugging, optimization, and improving project architecture.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
             <section className="max-w-5xl mx-auto mt-12 grid md:grid-cols-3 gap-6">
                 <div className="p-6 rounded-lg border border-border bg-gradient-card">
                     <h2 className="font-semibold mb-2">Based in</h2>
