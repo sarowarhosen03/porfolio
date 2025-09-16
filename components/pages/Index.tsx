@@ -2,21 +2,20 @@ import Contact from "@/components/Contact";
 import Education from "@/components/Education";
 import Hero from "@/components/Hero";
 
-import { SocialLink } from "@/app/dashboard/profile/action";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
-import { PersonalInfo, Project, Skill } from "@/lib/generated/prisma";
+import { Project } from "@/lib/generated/prisma";
 
-const Index = ({ data }: { data: [PersonalInfo, Skill[], Project[]] }) => {
-  const [personalInfo, skill, projects] = data
+const Index = ({ data }: { data: [Project[]] }) => {
+  const [projects] = data
   return (
 
     <main>
       <section id="home">
-        <Hero name={personalInfo.name} bio={personalInfo.description} socialLinks={personalInfo.socialLinks as SocialLink} />
+        <Hero />
       </section>
       <section id="skills" >
-        <Skills skill={skill} />
+        <Skills />
       </section>
       <section id="education">
         <Education />
@@ -27,9 +26,7 @@ const Index = ({ data }: { data: [PersonalInfo, Skill[], Project[]] }) => {
           projects={projects.slice(0, 3)} />
       </section>
       <section id="contact">
-        <Contact
-          personalInfo={personalInfo}
-        />
+        <Contact />
       </section>
     </main>
 
