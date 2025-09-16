@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: personalInfo.name,
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
+  metadataBase: new URL(process.env.BASE_URL!),
   description: "Building elegant solutions, one line at a time.",
   openGraph: {
     title: personalInfo.name,
