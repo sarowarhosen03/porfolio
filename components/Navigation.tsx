@@ -3,11 +3,14 @@ import LoginButton from '@/app/(main)/_components/LoginButton';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -33,18 +36,34 @@ const Navigation = () => {
             >
               Home
             </Link>
-            <button
-              onClick={() => scrollToSection('skills')}
+            <Link
+              href={'/about'}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Skills
-            </button>
-            <button
-              onClick={() => scrollToSection('education')}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Education
-            </button>
+              About
+            </Link>
+            {isHome && (
+              <>
+                <button
+                  onClick={() => scrollToSection('skills')}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Skills
+                </button>
+                <button
+                  onClick={() => scrollToSection('education')}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Education
+                </button>
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Contact
+                </button>
+              </>
+            )}
             <Link
               href={'/project'}
 
@@ -52,12 +71,6 @@ const Navigation = () => {
             >
               Projects
             </Link>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </button>
             <LoginButton />
             <ThemeToggle />
           </div>
@@ -79,36 +92,46 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
-              <button
-                onClick={() => scrollToSection('hero')}
+              <Link
+                href={'/'}
                 className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
               >
                 Home
-              </button>
-              <button
-                onClick={() => scrollToSection('skills')}
+              </Link>
+              <Link
+                href={'/about'}
                 className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
               >
-                Skills
-              </button>
-              <button
-                onClick={() => scrollToSection('education')}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                Education
-              </button>
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                Projects
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
-              >
-                Contact
-              </button>
+                About
+              </Link>
+              {isHome && (
+                <>
+                  <button
+                    onClick={() => scrollToSection('skills')}
+                    className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+                  >
+                    Skills
+                  </button>
+                  <button
+                    onClick={() => scrollToSection('education')}
+                    className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+                  >
+                    Education
+                  </button>
+                  <button
+                    onClick={() => scrollToSection('projects')}
+                    className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+                  >
+                    Projects
+                  </button>
+                  <button
+                    onClick={() => scrollToSection('contact')}
+                    className="block px-3 py-2 text-foreground hover:text-primary transition-colors w-full text-left"
+                  >
+                    Contact
+                  </button>
+                </>
+              )}
               <LoginButton />
             </div>
           </div>

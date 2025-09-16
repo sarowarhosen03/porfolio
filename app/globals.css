@@ -218,18 +218,18 @@ All colors MUST be HSL.
     hsl(142.1 76.2% 36.3%),
     hsl(240 4.8% 95.9%)
   );
-  /* Softer layered hero gradient for light mode */
+  /* Refined hero gradient (light): vibrant but subtle mesh */
   --gradient-hero: radial-gradient(
-      900px 600px at 10% 20%,
-      hsl(142.1 76.2% 36.3% / 0.1),
+      900px 600px at 15% 20%,
+      hsl(150 70% 45% / 0.12),
       transparent 60%
     ),
     radial-gradient(
-      700px 500px at 85% 0%,
-      hsl(197 37% 24% / 0.06),
+      700px 500px at 85% 30%,
+      hsl(260 70% 50% / 0.08),
       transparent 60%
     ),
-    linear-gradient(180deg, hsl(0 0% 100%), hsl(240 4.8% 95.9%));
+    linear-gradient(180deg, hsl(0 0% 100%), hsl(240 4.8% 96%));
   --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 4.8% 95.9%));
   --shadow-glow: 0 0 40px hsl(142.1 76.2% 46.3% / 0.3);
 
@@ -276,15 +276,15 @@ All colors MUST be HSL.
     hsl(142.1 70.6% 45.3%),
     hsl(240 3.7% 15.9%)
   );
-  /* Softer layered hero gradient for dark mode */
+  /* Refined hero gradient (dark) */
   --gradient-hero: radial-gradient(
-      900px 600px at 10% 20%,
-      hsl(142.1 70.6% 45.3% / 0.12),
+      900px 600px at 15% 20%,
+      hsl(150 70% 45% / 0.2),
       transparent 60%
     ),
     radial-gradient(
-      700px 500px at 85% 0%,
-      hsl(220 70% 50% / 0.06),
+      700px 500px at 85% 30%,
+      hsl(260 70% 60% / 0.12),
       transparent 60%
     ),
     linear-gradient(180deg, hsl(20 14.3% 4.1%), hsl(0 0% 9%));
@@ -482,6 +482,69 @@ All colors MUST be HSL.
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: var(--muted-foreground) var(--muted);
+}
+
+/* 3D cube styles for hero */
+.cube-scene {
+  --cube-size: 300px;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  perspective: 1000px;
+}
+
+@media (width >= 768px) {
+  .cube-scene {
+    --cube-size: 360px;
+  }
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: cube-spin 18s linear infinite;
+}
+
+.cube:hover {
+  animation-play-state: paused;
+}
+
+.cube-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  background: var(--gradient-card);
+  box-shadow: 0 0 0 1px hsl(0 0% 100% / 0.04) inset,
+    0 20px 60px -20px hsl(142 70% 45% / 0.25);
+}
+
+.cube-face .icon {
+  width: 82px;
+  height: 83px;
+  color: var(--primary);
+}
+
+@media (width >= 768px) {
+  .cube-face .icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@keyframes cube-spin {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: rotateX(180deg) rotateY(180deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
 }
 
 /* Global scrollbar styling */

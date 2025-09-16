@@ -1,5 +1,6 @@
 
 
+import PageTransition from "@/components/site/PageTransition";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
@@ -47,7 +48,7 @@ export default async function RootLayout({
               <Sonner />
 
 
-              {children}
+              <PageTransition>{children}</PageTransition>
 
 
             </SessionProvider>

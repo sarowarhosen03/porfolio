@@ -1,7 +1,11 @@
+'use client'
 
+import HeroCTAs from "@/components/HeroCTAs";
+import InteractiveCube from "@/components/InteractiveCube";
 import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/utils/data";
-import { ArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const Hero = () => {
@@ -28,55 +32,101 @@ const Hero = () => {
       <div className="absolute inset-0 noise-overlay pointer-events-none" aria-hidden />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center text-center">
-          <div className="max-w-4xl mx-auto">
-            {/* Profile image placeholder */}
-            <div className="w-32 h-32 mx-auto mb-8 bg-gradient-primary rounded-full shadow-glow animate-glow" />
+        <div className="min-h-[calc(100vh-5rem)] grid md:grid-cols-2 items-center gap-8">
+          <div className="order-2 md:order-1 text-center md:text-left max-w-2xl mx-auto">
+            {/* Profile image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mx-auto mb-8"
+            >
+              <div className="relative h-40 w-40 md:h-48 md:w-48 rounded-full ring-4 ring-primary/40 shadow-glow overflow-hidden">
+                {personalInfo.imageUrl && (
+                  <Image src={personalInfo.imageUrl} alt={personalInfo.name} fill className="object-cover" />
+                )}
+              </div>
+            </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-gradient-hero text-muted-foreground ">{personalInfo.name}</span>
-            </h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+              className="text-5xl md:text-7xl font-bold mb-6"
+            >
+              <span className="text-foreground">{personalInfo.name}</span>
+            </motion.h1>
 
-            <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              className="text-2xl md:text-3xl font-semibold text-foreground mb-6"
+            >
               Software Developer
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+              className="text-lg md:text-xl text-foreground/90 max-w-2xl mx-auto md:mx-0 mb-8 leading-relaxed"
+            >
               {personalInfo.description}
-            </p>
+            </motion.p>
 
             {/* Social links */}
-            <div className="flex justify-center gap-4 mb-8">
+            <motion.div
+              initial="hidden"
+              animate="show"
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.35 } } }}
+              className="flex justify-center md:justify-start gap-3 mb-8"
+            >
               {personalInfo.socialLinks.map((item) => (
-                <Link key={item.id} href={item.url}>
-                  <Button variant="outline" size="icon" className="rounded-full hover:shadow-glow transition-smooth">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: item.icon }}
-                      className="h-5 w-5 cursor-pointer"
-                    />
-                  </Button>
-                </Link>
+                <motion.div
+                  key={item.id}
+                  variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                >
+                  <Link href={item.url} aria-label={item.name}>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full ring-1 ring-primary/30 hover:ring-primary/60 hover:scale-105 transition-smooth bg-background/60 backdrop-blur"
+                    >
+                      <div
+                        dangerouslySetInnerHTML={{ __html: item.icon }}
+                        className="h-5 w-5"
+                      />
+                    </Button>
+                  </Link>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link href={"#projects"}>
-                <Button variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary  transition-smooth">
-                  View My Work
-                </Button>
-              </Link>
-              <Link href={"#contact"}>
-                <Button variant="outline" className="px-8 py-3 text-lg border-primary text-primary hover:bg-primary  transition-smooth">
-                  Contact Me
-                </Button>
-              </Link>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.45 }}
+            >
+              <HeroCTAs />
+            </motion.div>
 
-            {/* Scroll indicator */}
-            <Link href={"#skills"} className="animate-bounce inline-flex items-center justify-center">
-              <ArrowDown className="h-6 w-6 mx-auto text-muted-foreground" />
-            </Link>
+
+
+          </div>
+
+          {/* Right visual column: 3D rotating cube */}
+          <div className="order-1 md:order-2 hidden md:flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+              className="cube-scene relative"
+            >
+              <InteractiveCube />
+              <div className="pointer-events-none absolute -inset-8 rounded-[2rem] blur-3xl bg-primary/20" />
+            </motion.div>
           </div>
         </div>
       </div>

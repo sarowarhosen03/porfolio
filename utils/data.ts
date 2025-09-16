@@ -6,7 +6,7 @@ export const personalInfo = {
   email: "hi@sarowar.dev",
   phone: "+8801739937279",
   location: "Bangladesh ",
-  imageUrl: null,
+  imageUrl: "/profile.png",
   socialLinks: [
     {
       id: "bdb6f4fb-ee70-458f-bd26-b02de7b899fc",
