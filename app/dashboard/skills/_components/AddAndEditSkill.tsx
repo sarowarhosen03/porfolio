@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -14,107 +14,98 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { categoryList } from "@/data/staticData";
-import { Skill } from "@/lib/generated/prisma";
-import resolvePromise from "@/lib/resolvePromise";
-import { Loader2Icon, Plus } from "lucide-react";
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-  useTransition,
-} from "react";
-import { toast } from "sonner";
-import { addSkillAction, editSkillAction } from "./action";
+} from '@/components/ui/select'
+import { categoryList } from '@/data/staticData'
+import { Skill } from '@/lib/generated/prisma'
+import resolvePromise from '@/lib/resolvePromise'
+import { Loader2Icon, Plus } from 'lucide-react'
+import { Dispatch, SetStateAction, useEffect, useState, useTransition } from 'react'
+import { toast } from 'sonner'
+import { addSkillAction, editSkillAction } from './action'
 const defaultSkillState = {
-  title: "",
-  category: "",
+  title: '',
+  category: '',
   level: 100,
-};
+}
 export default function AddAndEditSkill({
   isOpen,
   setIsOpen,
   editState,
   setEditState,
 }: {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  setEditState: Dispatch<SetStateAction<Skill | null>>;
-  editState: null | Skill;
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+  setEditState: Dispatch<SetStateAction<Skill | null>>
+  editState: null | Skill
 }) {
-  const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition()
 
   const [skillState, setSkillState] =
-    useState<Omit<Skill, "id" | "createdAt" | "updatedAt">>(defaultSkillState);
+    useState<Omit<Skill, 'id' | 'createdAt' | 'updatedAt'>>(defaultSkillState)
 
   useEffect(() => {
     if (editState) {
-      setSkillState(editState);
+      setSkillState(editState)
     } else {
-      setSkillState(defaultSkillState);
+      setSkillState(defaultSkillState)
     }
-  }, [editState]);
+  }, [editState])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
     startTransition(() => {
-      (async () => {
+      ;(async () => {
         const [data, error] = await resolvePromise(
           editState
             ? editSkillAction({ ...skillState, id: editState.id })
             : addSkillAction({ ...skillState })
-        );
+        )
         if (error || !data?.success) {
-          toast.error("Soothing Went Wrong");
+          toast.error('Soothing Went Wrong')
         } else {
-          setIsOpen(false);
-          setSkillState(defaultSkillState);
-          toast.success(data?.message || "Skill added successfully!");
+          setIsOpen(false)
+          setSkillState(defaultSkillState)
+          toast.success(data?.message || 'Skill added successfully!')
         }
-      })();
-    });
+      })()
+    })
   }
   function handleChange(
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     setSkillState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }));
+    }))
   }
   return (
     <Dialog
       open={isOpen}
       onOpenChange={(e) => {
         if (!e) {
-          setEditState(null);
+          setEditState(null)
         }
-        setIsOpen(e);
+        setIsOpen(e)
       }}
     >
       <DialogTrigger asChild>
         <Button className="bg-gradient-primary">
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="mr-2 h-4 w-4" />
           Add Skill
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{editState ? "Edit" : "Add"} Skill</DialogTitle>
+          <DialogTitle>{editState ? 'Edit' : 'Add'} Skill</DialogTitle>
         </DialogHeader>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input
-            name='title'
+            name="title"
             placeholder="Skill Name"
             value={skillState.title}
             onChange={handleChange}
           />
           <Input
-
             onChange={handleChange}
             type="number"
             placeholder="Proficiency Level (0-100)"
@@ -143,17 +134,17 @@ export default function AddAndEditSkill({
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Button type="submit" className="w-full bg-gradient-primary">
+          <Button type="submit" className="bg-gradient-primary w-full">
             {isPending && (
               <>
                 <Loader2Icon className="animate-spin" />
                 Please wait
               </>
             )}
-            {!isPending && `${editState ? "Edit" : "Add"} Skill`}
+            {!isPending && `${editState ? 'Edit' : 'Add'} Skill`}
           </Button>
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

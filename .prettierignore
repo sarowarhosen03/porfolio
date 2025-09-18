@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+build
+dist
+coverage
+**/*.min.*
+package-lock.json
+bun.lock
+**/generated/**
+**/.turbo/**
+**/.cache/**

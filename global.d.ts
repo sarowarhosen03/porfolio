@@ -1,15 +1,15 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    NODE_ENV: "development" | "production" | "test";
-    BASE_URL: string;
-    NEXT_PUBLIC_BASE_URL: string;
-    AUTH_URL: string;
-    EMAIL_USER: string;
-    EMAIL_PASSWORD: string;
-    AUTH_GOOGLE_ID: string;
-    AUTH_GOOGLE_SECRET: string;
-    DATABASE_URL: string; // This is the Prisma connection string
-    EMAIL_SMTP: string;
-    EMAIL_PORT: string;
+    NODE_ENV: 'development' | 'production' | 'test'
+    BASE_URL: string
+    NEXT_PUBLIC_BASE_URL: string
+    AUTH_URL: string
+    EMAIL_USER: string
+    EMAIL_PASSWORD: string
+    AUTH_GOOGLE_ID: string
+    AUTH_GOOGLE_SECRET: string
+    DATABASE_URL: string // This is the Prisma connection string
+    EMAIL_SMTP: string
+    EMAIL_PORT: string
   }
 }

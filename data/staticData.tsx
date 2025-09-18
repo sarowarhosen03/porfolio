@@ -1,1 +1,1 @@
-export const categoryList = ["Front End", "backend", "Others Tools"]
+export const categoryList = ['Front End', 'backend', 'Others Tools']

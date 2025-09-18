@@ -1,19 +1,19 @@
-"use server";
+'use server'
 
-import { PersonalInfo } from "@/lib/generated/prisma";
-import resolvePromise from "@/lib/resolvePromise";
-import { dbClient } from "@/prismaClient";
-import { revalidatePath } from "next/cache";
+import { PersonalInfo } from '@/lib/generated/prisma'
+import resolvePromise from '@/lib/resolvePromise'
+import { dbClient } from '@/prismaClient'
+import { revalidatePath } from 'next/cache'
 export type SocialLink = {
-  id: string;
-  name: string;
-  url: string;
-  icon: string;
-  userName: string;
-}[];
+  id: string
+  name: string
+  url: string
+  icon: string
+  userName: string
+}[]
 export async function updateProfileAction(
   payload: PersonalInfo & {
-    socialLinks: SocialLink;
+    socialLinks: SocialLink
   }
 ) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,9 +34,9 @@ export async function updateProfileAction(
         socialLinks: payload.socialLinks,
       },
     })
-  );
-  if (error) return { success: false, message: "failed to update" };
-  revalidatePath("/dashboard/profile");
-  revalidatePath("/");
-  return { success: false, message: "Updated Successfully" };
+  )
+  if (error) return { success: false, message: 'failed to update' }
+  revalidatePath('/dashboard/profile')
+  revalidatePath('/')
+  return { success: false, message: 'Updated Successfully' }
 }

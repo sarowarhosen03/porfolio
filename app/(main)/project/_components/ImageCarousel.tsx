@@ -1,20 +1,20 @@
 'use client'
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import Image from "next/image";
+} from '@/components/ui/carousel'
+import Image from 'next/image'
 
 export default function ImageCarousel({ gallery }: { gallery: string }) {
-  const galleryArray = gallery ? (JSON.parse(gallery) as string[]) : [];
+  const galleryArray = gallery ? (JSON.parse(gallery) as string[]) : []
 
   return (
-    <div className="w-full flex justify-center items-center text-center relative">
+    <div className="relative flex w-full items-center justify-center text-center">
       {/* <style jsx>{`
         .is-wheel-dragging {
           cursor: grabbing !important;
@@ -22,41 +22,37 @@ export default function ImageCarousel({ gallery }: { gallery: string }) {
       `}</style> */}
 
       <Carousel
-        className="w-full max-w-5xl mx-auto"
+        className="mx-auto w-full max-w-5xl"
         opts={{
           // align: "start",
           loop: true,
           dragFree: false,
-          containScroll: "trimSnaps",
+          containScroll: 'trimSnaps',
         }}
-      // plugins={[WheelGesturesPlugin({
-      //   forceWheelAxis: "y",
+        // plugins={[WheelGesturesPlugin({
+        //   forceWheelAxis: "y",
 
-      // })
-      // ]}
-
+        // })
+        // ]}
       >
         <CarouselContent>
           {/* First Item */}
 
-
           {/* Gallery Items */}
           {galleryArray.map((img: string, index: number) => (
             <CarouselItem key={index}>
-              <div className="p-1  flex  justify-center items-center">
-                <Card className="w-full max-h-[22rem] overflow-y-auto scrollbar-thin">
-
-
-                  <CardContent className="flex  justify-center items-center">
-                    <div className="w-full  flex justify-center items-center ">
+              <div className="flex items-center justify-center p-1">
+                <Card className="scrollbar-thin max-h-[22rem] w-full overflow-y-auto">
+                  <CardContent className="flex items-center justify-center">
+                    <div className="flex w-full items-center justify-center">
                       <Image
                         alt="thumb"
                         src={img}
-                        width={1200}   // increase width
+                        width={1200} // increase width
                         height={800}
                         blurDataURL={img}
                         placeholder="blur"
-                        className="rounded-lg  h-auto w-auto max-w-full mx-auto"
+                        className="mx-auto h-auto w-auto max-w-full rounded-lg"
                       />
                     </div>
                   </CardContent>
@@ -70,5 +66,5 @@ export default function ImageCarousel({ gallery }: { gallery: string }) {
         <CarouselNext className="right-2 z-10" />
       </Carousel>
     </div>
-  );
+  )
 }

@@ -1,61 +1,48 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-  Eye,
-  FolderOpen,
-  LayoutDashboard,
-  LogOut,
-  Settings,
-  User
-} from "lucide-react";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { toast } from "sonner";
-import revalidateAllRoute from "./action";
+'use client'
+import { Button } from '@/components/ui/button'
+import { Eye, FolderOpen, LayoutDashboard, LogOut, Settings, User } from 'lucide-react'
+import { signOut } from 'next-auth/react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { toast } from 'sonner'
+import revalidateAllRoute from './action'
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathName = usePathname();
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const pathName = usePathname()
 
   const sidebarItems = [
-    { id: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { id: "/dashboard/projects", label: "Projects", icon: FolderOpen },
-    { id: "/dashboard/skills", label: "Skills", icon: Settings },
-    { id: "/dashboard/profile", label: "Profile", icon: User },
-  ];
+    { id: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: '/dashboard/projects', label: 'Projects', icon: FolderOpen },
+    { id: '/dashboard/skills', label: 'Skills', icon: Settings },
+    { id: '/dashboard/profile', label: 'Profile', icon: User },
+  ]
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="bg-muted/30 min-h-screen">
       {/* Header */}
-      <header className="bg-card border-b border-border">
+      <header className="bg-card border-border border-b">
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-4">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">
-                SH
-              </span>
+            <div className="bg-gradient-primary flex h-8 w-8 items-center justify-center rounded-lg">
+              <span className="text-primary-foreground text-sm font-bold">SH</span>
             </div>
             <h1 className="text-xl font-semibold">Admin Dashboard</h1>
           </div>
           <div className="flex items-center gap-4">
-            <Link href={"/"}>
+            <Link href={'/'}>
               <Button variant="outline" size="sm">
-                <Eye className="h-4 w-4 mr-2" />
+                <Eye className="mr-2 h-4 w-4" />
                 View Site
               </Button>
             </Link>
             <Button
               onClick={() => {
-                signOut({ redirectTo: "/" });
+                signOut({ redirectTo: '/' })
               }}
               variant="outline"
               size="sm"
             >
-              <LogOut className="h-4 w-4 mr-2" />
+              <LogOut className="mr-2 h-4 w-4" />
               Logout
             </Button>
           </div>
@@ -64,34 +51,34 @@ export default function DashboardLayout({
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-card border-r border-border min-h-screen">
-          <nav className="p-4 space-y-2">
+        <aside className="bg-card border-border min-h-screen w-64 border-r">
+          <nav className="space-y-2 p-4">
             {sidebarItems.map((item) => {
-              const Icon = item.icon;
+              const Icon = item.icon
               return (
                 <Link key={item.id} href={item.id}>
                   <button
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left ${pathName === item.id
-                      ? "bg-primary text-primary-foreground"
-                      : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                      }`}
+                    className={`transition-smooth flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left ${
+                      pathName === item.id
+                        ? 'bg-primary text-primary-foreground'
+                        : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+                    }`}
                   >
                     <Icon className="h-5 w-5" />
                     {item.label}
                   </button>
                 </Link>
-              );
+              )
             })}
-            <Button variant={"outline"}
+            <Button
+              variant={'outline'}
               onClick={async () => {
                 await revalidateAllRoute()
-                toast.success("revalidate done")
+                toast.success('revalidate done')
               }}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left"
+              className="transition-smooth flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left"
             >
-
               Revalidate Path
-
             </Button>
           </nav>
         </aside>
@@ -100,5 +87,5 @@ export default function DashboardLayout({
         <main className="flex-1 p-6">{children}</main>
       </div>
     </div>
-  );
+  )
 }

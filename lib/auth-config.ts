@@ -1,5 +1,5 @@
-import NextAuth, { NextAuthConfig } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth, { NextAuthConfig } from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authConfig = {
   trustHost: true,
@@ -10,18 +10,18 @@ export const authConfig = {
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
 
   callbacks: {
     async signIn({ user }) {
-      return user.email === "sarowarhosen03@gmail.com";
+      return user.email === 'sarowarhosen03@gmail.com'
     },
   },
-} satisfies NextAuthConfig;
+} satisfies NextAuthConfig
 
 NextAuth({
   ...authConfig,
 
-  debug: process.env.NODE_ENV === "development",
-});
+  debug: process.env.NODE_ENV === 'development',
+})

@@ -1,6 +1,6 @@
-import { dbClient } from "./prismaClient";
+import { dbClient } from './prismaClient'
 
-(async () => {
+;(async () => {
   //   const dta = await dbClient.project.createMany({
   //     data: [
   //       {
@@ -27,10 +27,10 @@ import { dbClient } from "./prismaClient";
   // });
   const dta = await dbClient.socialLInk.create({
     data: {
-      icon: "fuck",
-      name: "fuck",
-      url: "http",
-      personalInfoId: "cmd308hvw0000k50w3avzbijd",
+      icon: 'fuck',
+      name: 'fuck',
+      url: 'http',
+      personalInfoId: 'cmd308hvw0000k50w3avzbijd',
     },
-  });
-})();
+  })
+})()

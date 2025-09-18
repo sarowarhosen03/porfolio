@@ -1,24 +1,22 @@
-"use server";
-import nodemailer from "nodemailer";
+'use server'
+import nodemailer from 'nodemailer'
 
 export default async function sendEmail(contactState: {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
+  name: string
+  email: string
+  subject: string
+  message: string
 }) {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_SMTP,
-      port: parseInt(process.env.EMAIL_PORT || "465"),
+      port: parseInt(process.env.EMAIL_PORT || '465'),
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
-    });
+    })
 
-
-    
     // Create beautiful HTML email template
     const htmlTemplate = `
       <!DOCTYPE html>
@@ -186,16 +184,16 @@ export default async function sendEmail(contactState: {
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            timeZoneName: 'short'
+            timeZoneName: 'short',
           })}
         </div>
       </body>
       </html>
-    `;
-    
+    `
+
     const mailOptions = {
       from: `"${contactState.name}" <portfolio@sarowar.dev>`,
-      to: "hi@sarowar.dev",
+      to: 'hi@sarowar.dev',
       subject: `Portfolio Contact: ${contactState.subject}`,
       text: `
         New contact message from your portfolio:
@@ -210,9 +208,7 @@ export default async function sendEmail(contactState: {
         Sent on: ${new Date().toLocaleString()}
       `,
       html: htmlTemplate,
-    };
-    
-
+    }
 
     // Auto-reply to the sender
     const autoReplyHtml = `
@@ -261,22 +257,22 @@ export default async function sendEmail(contactState: {
           </table>
         </body>
       </html>
-    `;
+    `
 
     const autoReplyOptions = {
       from: `"Sarowar Hossain" <hi@sarowar.dev>`,
       to: contactState.email,
-      replyTo: "hi@sarowar.dev",
+      replyTo: 'hi@sarowar.dev',
       subject: `Re: ${contactState.subject}`,
       text: `Hi ${contactState.name},\n\nThanks for reaching out! I've received your message and will reply within 24–48 hours.\n\nYour message:\n${contactState.message}\n\n— Sarowar`,
       html: autoReplyHtml,
-    };
+    }
 
-    await Promise.all([transporter.sendMail(mailOptions), transporter.sendMail(autoReplyOptions)]);
-transporter.close()
-    return { success: true, message: "Email sent successfully" };
+    await Promise.all([transporter.sendMail(mailOptions), transporter.sendMail(autoReplyOptions)])
+    transporter.close()
+    return { success: true, message: 'Email sent successfully' }
   } catch (e) {
-    console.error("Email sending error:", e);
-    return { success: false, message: "Failed to send email" };
+    console.error('Email sending error:', e)
+    return { success: false, message: 'Failed to send email' }
   }
 }

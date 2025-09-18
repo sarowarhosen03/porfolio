@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -154,13 +154,12 @@
 
 /* Immersive utilities */
 @utility bg-grid {
-  background-image: linear-gradient(
-      to right,
-      hsl(0 0% 100% / 0.06) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(to right, hsl(0 0% 100% / 0.06) 1px, transparent 1px),
     linear-gradient(to bottom, hsl(0 0% 100% / 0.06) 1px, transparent 1px);
-  background-size: 40px 40px, 40px 40px;
+  background-size:
+    40px 40px,
+    40px 40px;
   background-position: center center;
 }
 
@@ -213,22 +212,11 @@ All colors MUST be HSL.
 
   /* Custom gradients and effects */
   --primary-glow: hsl(142.1 76.2% 46.3%);
-  --gradient-primary: linear-gradient(
-    135deg,
-    hsl(142.1 76.2% 36.3%),
-    hsl(240 4.8% 95.9%)
-  );
+  --gradient-primary: linear-gradient(135deg, hsl(142.1 76.2% 36.3%), hsl(240 4.8% 95.9%));
   /* Refined hero gradient (light): vibrant but subtle mesh */
-  --gradient-hero: radial-gradient(
-      900px 600px at 15% 20%,
-      hsl(150 70% 45% / 0.12),
-      transparent 60%
-    ),
-    radial-gradient(
-      700px 500px at 85% 30%,
-      hsl(260 70% 50% / 0.08),
-      transparent 60%
-    ),
+  --gradient-hero:
+    radial-gradient(900px 600px at 15% 20%, hsl(150 70% 45% / 0.12), transparent 60%),
+    radial-gradient(700px 500px at 85% 30%, hsl(260 70% 50% / 0.08), transparent 60%),
     linear-gradient(180deg, hsl(0 0% 100%), hsl(240 4.8% 96%));
   --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 4.8% 95.9%));
   --shadow-glow: 0 0 40px hsl(142.1 76.2% 46.3% / 0.3);
@@ -271,22 +259,11 @@ All colors MUST be HSL.
 
   /* Custom dark mode gradients and effects */
   --primary-glow: hsl(142.1 70.6% 55.3%);
-  --gradient-primary: linear-gradient(
-    135deg,
-    hsl(142.1 70.6% 45.3%),
-    hsl(240 3.7% 15.9%)
-  );
+  --gradient-primary: linear-gradient(135deg, hsl(142.1 70.6% 45.3%), hsl(240 3.7% 15.9%));
   /* Refined hero gradient (dark) */
-  --gradient-hero: radial-gradient(
-      900px 600px at 15% 20%,
-      hsl(150 70% 45% / 0.2),
-      transparent 60%
-    ),
-    radial-gradient(
-      700px 500px at 85% 30%,
-      hsl(260 70% 60% / 0.12),
-      transparent 60%
-    ),
+  --gradient-hero:
+    radial-gradient(900px 600px at 15% 20%, hsl(150 70% 45% / 0.2), transparent 60%),
+    radial-gradient(700px 500px at 85% 30%, hsl(260 70% 60% / 0.12), transparent 60%),
     linear-gradient(180deg, hsl(20 14.3% 4.1%), hsl(0 0% 9%));
   --gradient-card: linear-gradient(145deg, hsl(24 9.8% 10%), hsl(0 0% 15%));
   --shadow-glow: 0 0 40px hsl(142.1 70.6% 55.3% / 0.4);
@@ -336,39 +313,39 @@ All colors MUST be HSL.
 }
 
 .markdown-content h1 {
-  @apply text-3xl font-bold mb-6 mt-8 text-foreground border-b border-border pb-2;
+  @apply text-foreground border-border mt-8 mb-6 border-b pb-2 text-3xl font-bold;
 }
 
 .markdown-content h2 {
-  @apply text-2xl font-semibold mb-4 mt-6 text-foreground;
+  @apply text-foreground mt-6 mb-4 text-2xl font-semibold;
 }
 
 .markdown-content h3 {
-  @apply text-xl font-semibold mb-3 mt-5 text-foreground;
+  @apply text-foreground mt-5 mb-3 text-xl font-semibold;
 }
 
 .markdown-content h4 {
-  @apply text-lg font-medium mb-2 mt-4 text-foreground;
+  @apply text-foreground mt-4 mb-2 text-lg font-medium;
 }
 
 .markdown-content h5 {
-  @apply text-base font-medium mb-2 mt-3 text-foreground;
+  @apply text-foreground mt-3 mb-2 text-base font-medium;
 }
 
 .markdown-content h6 {
-  @apply text-sm font-medium mb-2 mt-3 text-muted-foreground;
+  @apply text-muted-foreground mt-3 mb-2 text-sm font-medium;
 }
 
 .markdown-content p {
-  @apply mb-4 text-muted-foreground leading-7;
+  @apply text-muted-foreground mb-4 leading-7;
 }
 
 .markdown-content ul {
-  @apply mb-4 pl-6 space-y-2;
+  @apply mb-4 space-y-2 pl-6;
 }
 
 .markdown-content ol {
-  @apply mb-4 pl-6 space-y-2;
+  @apply mb-4 space-y-2 pl-6;
 }
 
 .markdown-content li {
@@ -384,15 +361,15 @@ All colors MUST be HSL.
 }
 
 .markdown-content blockquote {
-  @apply border-l-4 border-primary bg-muted/50 pl-4 py-2 my-6 italic text-muted-foreground;
+  @apply border-primary bg-muted/50 text-muted-foreground my-6 border-l-4 py-2 pl-4 italic;
 }
 
 .markdown-content code {
-  @apply bg-muted text-foreground px-2 py-1 rounded text-sm font-mono;
+  @apply bg-muted text-foreground rounded px-2 py-1 font-mono text-sm;
 }
 
 .markdown-content pre {
-  @apply bg-muted border border-border rounded-lg p-4 my-6 overflow-x-auto;
+  @apply bg-muted border-border my-6 overflow-x-auto rounded-lg border p-4;
 }
 
 .markdown-content pre code {
@@ -404,11 +381,11 @@ All colors MUST be HSL.
 }
 
 .markdown-content strong {
-  @apply font-semibold text-foreground;
+  @apply text-foreground font-semibold;
 }
 
 .markdown-content em {
-  @apply italic text-muted-foreground;
+  @apply text-muted-foreground italic;
 }
 
 .markdown-content hr {
@@ -416,32 +393,32 @@ All colors MUST be HSL.
 }
 
 .markdown-content table {
-  @apply w-full border-collapse border border-border my-6;
+  @apply border-border my-6 w-full border-collapse border;
 }
 
 .markdown-content th {
-  @apply bg-muted border border-border px-4 py-2 text-left font-semibold text-foreground;
+  @apply bg-muted border-border text-foreground border px-4 py-2 text-left font-semibold;
 }
 
 .markdown-content td {
-  @apply border border-border px-4 py-2 text-muted-foreground;
+  @apply border-border text-muted-foreground border px-4 py-2;
 }
 
 .markdown-content img {
-  @apply rounded-lg shadow-lg my-6 max-w-full h-auto;
+  @apply my-6 h-auto max-w-full rounded-lg shadow-lg;
 }
 
 .markdown-content .highlight {
-  @apply bg-yellow-100 dark:bg-yellow-900/20 px-1 rounded;
+  @apply rounded bg-yellow-100 px-1 dark:bg-yellow-900/20;
 }
 
 /* Syntax highlighting for code blocks */
-.markdown-content pre[class*="language-"] {
-  @apply bg-muted border border-border rounded-lg p-4 my-6 overflow-x-auto;
+.markdown-content pre[class*='language-'] {
+  @apply bg-muted border-border my-6 overflow-x-auto rounded-lg border p-4;
 }
 
-.markdown-content code[class*="language-"] {
-  @apply text-sm font-mono;
+.markdown-content code[class*='language-'] {
+  @apply font-mono text-sm;
 }
 
 /* Custom scrollbar for code blocks */
@@ -454,7 +431,7 @@ All colors MUST be HSL.
 }
 
 .markdown-content pre::-webkit-scrollbar-thumb {
-  @apply bg-border rounded hover:bg-border/80;
+  @apply bg-border hover:bg-border/80 rounded;
 }
 
 /* Thin scrollbar */
@@ -518,7 +495,8 @@ All colors MUST be HSL.
   justify-content: center;
   border-radius: 1.25rem;
   background: var(--gradient-card);
-  box-shadow: 0 0 0 1px hsl(0 0% 100% / 0.04) inset,
+  box-shadow:
+    0 0 0 1px hsl(0 0% 100% / 0.04) inset,
     0 20px 60px -20px hsl(142 70% 45% / 0.25);
 }
 
