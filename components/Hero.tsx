@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { personalInfo } from '@/utils/data'
 import { motion } from 'framer-motion'
+import { Expand } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -46,7 +47,7 @@ const Hero = () => {
             >
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="ring-primary/40 shadow-glow relative h-40 w-40 overflow-hidden rounded-full ring-4 cursor-pointer hover:ring-primary/60 transition-all duration-300 hover:scale-105 md:h-48 md:w-48">
+                  <div className="ring-primary/40 shadow-glow relative h-40 w-40 overflow-hidden rounded-full ring-4 cursor-pointer hover:ring-primary/60 transition-all duration-300 hover:scale-105 md:h-48 md:w-48 group">
                     {personalInfo.imageUrl && (
                       <Image
                         src={personalInfo.imageUrl}
@@ -55,6 +56,10 @@ const Hero = () => {
                         className="object-cover"
                       />
                     )}
+                    {/* Expand icon overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <Expand className="h-8 w-8 text-white" />
+                    </div>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl p-0">
