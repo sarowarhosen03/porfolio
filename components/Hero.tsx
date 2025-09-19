@@ -3,6 +3,7 @@
 import HeroCTAs from '@/components/HeroCTAs'
 import InteractiveCube from '@/components/InteractiveCube'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { personalInfo } from '@/utils/data'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -43,16 +44,33 @@ const Hero = () => {
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="mx-auto mb-8"
             >
-              <div className="ring-primary/40 shadow-glow relative h-40 w-40 overflow-hidden rounded-full ring-4 md:h-48 md:w-48">
-                {personalInfo.imageUrl && (
-                  <Image
-                    src={personalInfo.imageUrl}
-                    alt={personalInfo.name}
-                    fill
-                    className="object-cover"
-                  />
-                )}
-              </div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="ring-primary/40 shadow-glow relative h-40 w-40 overflow-hidden rounded-full ring-4 cursor-pointer hover:ring-primary/60 transition-all duration-300 hover:scale-105 md:h-48 md:w-48">
+                    {personalInfo.imageUrl && (
+                      <Image
+                        src={personalInfo.imageUrl}
+                        alt={personalInfo.name}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl p-0">
+                  <DialogTitle className="sr-only">Profile Image - {personalInfo.name}</DialogTitle>
+                  <div className="relative aspect-square w-full">
+                    {personalInfo.imageUrl && (
+                      <Image
+                        src={personalInfo.imageFull}
+                        alt={personalInfo.name}
+                        fill
+                        className="object-contain"
+                      />
+                    )}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </motion.div>
 
             <motion.h1

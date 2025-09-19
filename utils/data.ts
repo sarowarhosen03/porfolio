@@ -7,6 +7,8 @@ export const personalInfo = {
   phone: '+8801739937279',
   location: 'Bangladesh ',
   imageUrl: '/profile.png',
+  imageFull: '/profile-full.png',
+  cover: '/cover.png',
   socialLinks: [
     {
       id: 'bdb6f4fb-ee70-458f-bd26-b02de7b899fc',

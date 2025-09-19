@@ -27,18 +27,24 @@ export const metadata: Metadata = {
     description: 'Building elegant solutions, one line at a time.',
     images: [
       {
-        url: '/profile.png',
+        url: personalInfo.cover,
         width: 1200,
         height: 630,
         alt: 'Profile image',
       },
+      {
+        url: personalInfo.imageFull,
+        width: 700,
+        height: 630,
+        alt: 'Profile image',
+      }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Samovar Hessian',
+    title: personalInfo.name,
     description: 'Building elegant solutions, one line at a time.',
-    images: ['/profile.png'],
+    images: [personalInfo.cover],
   },
 }
 
