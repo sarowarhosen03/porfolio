@@ -9,10 +9,15 @@ export default async function Home() {
         where: {
           status: 'PUBLISHED',
         },
-        take: 4,
-        orderBy: {
-          updatedAt: 'desc',
-        }
+        take: 3,
+        orderBy: [
+          {
+            featured: 'desc',
+          },
+          {
+            updatedAt: 'desc',
+          },
+        ],
       }),
     ])
   )
