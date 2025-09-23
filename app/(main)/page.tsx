@@ -10,6 +10,9 @@ export default async function Home() {
           status: 'PUBLISHED',
         },
         take: 4,
+        orderBy: {
+          updatedAt: 'desc',
+        }
       }),
     ])
   )
